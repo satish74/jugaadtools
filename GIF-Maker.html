@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIF Maker | Create Animated GIFs Online</title>
+    <meta name="description" content="Free online GIF maker tool. Create animated GIFs from images with adjustable compression settings. No registration required.">
+    <meta name="keywords" content="gif maker, animated gif, create gif, image to gif, gif creator">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.js"></script>
+    <style>
+        :root {
+            --bg-dark-navy: #1E1E2F;
+            --text-light: #EAEAEA;
+            --header-blue: #2B2D42;
+            --accent-gold: #FFD700;
+            --card-bg: #3A3D5B;
+            --hover-gold: #FFD700;
+            --hover-text: #1E1E2F;
+            --button-hover: #E6C200;
+            --shadow-gold: rgba(255, 215, 0, 0.2);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark-navy);
+            color: var(--text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(43, 45, 66, 0.3) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(43, 45, 66, 0.3) 0%, transparent 20%);
+        }
+
+        header {
+            background-color: var(--header-blue);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0.8rem;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            background-color: var(--accent-gold);
+            color: var(--bg-dark-navy);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #2B2D42 0%, #1E1E2F 100%);
+            z-index: -1;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-gold);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .main-content {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .tool-container {
+            flex: 1;
+            min-width: 300px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px var(--shadow-gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-container::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .tool-title {
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+        }
+
+        .tool-title i {
+            font-size: 2rem;
+        }
+
+        .upload-area {
+            border: 2px dashed var(--accent-gold);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            background: rgba(42, 45, 66, 0.5);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            background: rgba(42, 45, 66, 0.8);
+        }
+
+        .upload-area i {
+            font-size: 3rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+
+        .upload-area p {
+            margin-bottom: 1rem;
+        }
+
+        #image-input {
+            display: none;
+        }
+
+        .upload-btn {
+            background-color: var(--accent-gold);
+            color: var(--bg-dark-navy);
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .upload-btn:hover {
+            background-color: var(--button-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow-gold);
+        }
+
+        .preview-container {
+            display: none;
+            margin-top: 2rem;
+        }
+
+        .frames-container {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .frame-item {
+            min-width: 120px;
+            text-align: center;
+            position: relative;
+        }
+
+        .frame-image {
+            width: 120px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 2px solid var(--accent-gold);
+            background-color: #2B2D42;
+        }
+
+        .frame-number {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--accent-gold);
+            color: var(--bg-dark-navy);
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .controls {
+            margin-top: 2rem;
+            display: none;
+        }
+
+        .control-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .slider-container input[type="range"] {
+            flex: 1;
+            height: 8px;
+            -webkit-appearance: none;
+            background: rgba(255, 215, 0, 0.2);
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .slider-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .slider-value {
+            min-width: 50px;
+            text-align: center;
+            font-weight: bold;
+            color: var(--accent-gold);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .input-group div {
+            flex: 1;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            background: rgba(42, 45, 66, 0.7);
+            color: var(--text-light);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            flex: 1;
+            min-width: 150px;
+            background-color: var(--accent-gold);
+            color: var(--bg-dark-navy);
+            padding: 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            background-color: var(--button-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px var(--shadow-gold);
+        }
+
+        .action-btn.secondary {
+            background-color: transparent;
+            color: var(--accent-gold);
+            border: 2px solid var(--accent-gold);
+        }
+
+        .action-btn.secondary:hover {
+            background-color: rgba(255, 215, 0, 0.1);
+        }
+
+        .result-container {
+            display: none;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        #gif-preview {
+            max-width: 100%;
+            max-height: 300px;
+            border: 2px solid var(--accent-gold);
+            border-radius: 8px;
+            box-shadow: 0 5px 15px var(--shadow-gold);
+            background-color: #2B2D42;
+        }
+
+        .conversion-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-card {
+            background: rgba(42, 45, 66, 0.7);
+            border-radius: 8px;
+            padding: 1rem;
+            min-width: 150px;
+        }
+
+        .stat-card h4 {
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar {
+            width: 300px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px var(--shadow-gold);
+            height: fit-content;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.05) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .sidebar-title {
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .features-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+
+        .features-list i {
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+        }
+
+        .ad-container {
+            background: linear-gradient(45deg, #2B2D42, #1E1E2F);
+            border: 2px dashed var(--accent-gold);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .ad-placeholder {
+            color: var(--accent-gold);
+            padding: 1.5rem;
+            font-weight: bold;
+        }
+
+        .ad-placeholder p {
+            margin: 0.5rem 0;
+        }
+
+        .tips {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(42, 45, 66, 0.5);
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-gold);
+        }
+
+        .tips h3 {
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        footer {
+            background-color: var(--header-blue);
+            padding: 2rem 0;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-section h3 {
+            color: var(--accent-gold);
+            margin-bottom: 1.2rem;
+            font-size: 1.3rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.7rem;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-gold);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 215, 0, 0.1);
+            font-size: 0.9rem;
+        }
+
+        .progress-container {
+            display: none;
+            margin-top: 1rem;
+            background: rgba(42, 45, 66, 0.7);
+            border-radius: 5px;
+            padding: 0.5rem;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: var(--accent-gold);
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 900px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                width: 100%;
+            }
+            
+            .conversion-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <h1><i class="fas fa-film"></i> GIF Maker Pro</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#"><i class="fas fa-tools"></i> Tools</a></li>
+                    <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Create Animated GIFs in Seconds</h2>
+            <p>Upload your images and transform them into animated GIFs with adjustable quality settings. No registration required!</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container main-content">
+        <!-- Tool Section -->
+        <div class="tool-container">
+            <h2 class="tool-title"><i class="fas fa-magic"></i> GIF Creator</h2>
+            
+            <div class="upload-area" id="drop-area">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>Upload Your Images</h3>
+                <p>Drag & drop your images here or click to browse</p>
+                <p>Supports JPG, PNG, WebP (Max: 5MB per image)</p>
+                <button class="upload-btn" id="upload-btn">Select Images</button>
+                <input type="file" id="image-input" accept="image/*" multiple>
+            </div>
+            
+            <div class="preview-container" id="preview-container">
+                <h3>Selected Frames <span id="frame-count">(0)</span></h3>
+                <div class="frames-container" id="frames-container">
+                    <!-- Frames will be added here dynamically -->
+                </div>
+            </div>
+            
+            <div class="controls" id="controls">
+                <div class="control-group">
+                    <label>Animation Speed: <span id="speed-value">100</span> ms/frame</label>
+                    <div class="slider-container">
+                        <input type="range" id="speed-slider" min="20" max="1000" value="100">
+                        <span class="slider-value">Normal</span>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Compression Quality</label>
+                    <div class="slider-container">
+                        <input type="range" id="quality-slider" min="1" max="30" value="10">
+                        <span class="slider-value">Balanced</span>
+                    </div>
+                    <p class="file-info">Lower number = better quality, larger file</p>
+                </div>
+                
+                <div class="control-group">
+                    <label>Loop Count</label>
+                    <div class="input-group">
+                        <div>
+                            <input type="number" id="loop-count" min="0" value="0">
+                            <p class="file-info">(0 = infinite loop)</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="action-btn" id="generate-btn"><i class="fas fa-cogs"></i> Generate GIF</button>
+                    <button class="action-btn secondary" id="reset-btn"><i class="fas fa-redo"></i> Reset</button>
+                </div>
+                
+                <div class="progress-container" id="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                    <div class="progress-text" id="progress-text">Processing: 0%</div>
+                </div>
+            </div>
+            
+            <div class="result-container" id="result-container">
+                <h3><i class="fas fa-check-circle"></i> Your Animated GIF</h3>
+                <img id="gif-preview">
+                
+                <div class="conversion-stats">
+                    <div class="stat-card">
+                        <h4>File Size</h4>
+                        <p id="file-size">0 KB</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Dimensions</h4>
+                        <p id="dimensions">0×0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Frames</h4>
+                        <p id="frames-count">0</p>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="action-btn" id="download-btn"><i class="fas fa-download"></i> Download GIF</button>
+                    <button class="action-btn secondary" id="new-gif-btn"><i class="fas fa-plus"></i> Create Another</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h3 class="sidebar-title"><i class="fas fa-star"></i> Features</h3>
+            <ul class="features-list">
+                <li><i class="fas fa-check-circle"></i> Create GIFs from multiple images</li>
+                <li><i class="fas fa-check-circle"></i> Adjustable animation speed</li>
+                <li><i class="fas fa-check-circle"></i> Quality control settings</li>
+                <li><i class="fas fa-check-circle"></i> Custom loop options</li>
+                <li><i class="fas fa-check-circle"></i> No uploads - process locally</li>
+                <li><i class="fas fa-check-circle"></i> Mobile-friendly interface</li>
+            </ul>
+            
+            <div class="ad-container">
+                <div class="ad-placeholder">
+                    <p>Advertisement Space (300x250)</p>
+                    <p>Google AdSense Unit ID: ADS-XXXX-YYY</p>
+                </div>
+            </div>
+            
+            <div class="tips">
+                <h3><i class="fas fa-lightbulb"></i> Pro Tips</h3>
+                <p>For smooth animations, use 10-15 frames per second (66-100ms delay).</p>
+                <p>Use quality setting 10-15 for optimal balance between quality and file size.</p>
+                <p>For social media, keep GIFs under 5MB for better sharing.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer Ad -->
+    <div class="container">
+        <div class="ad-container">
+            <div class="ad-placeholder">
+                <p>Advertisement Space (728x90)</p>
+                <p>Google AdSense Unit ID: ADS-XXXX-ZZZ</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>GIF Maker Pro</h3>
+                    <p>Free online tools for creating animated GIFs from your images.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Popular Tools</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-film"></i> GIF Maker</a></li>
+                        <li><a href="#"><i class="fas fa-crop-alt"></i> Image Cropper</a></li>
+                        <li><a href="#"><i class="fas fa-compress-arrows-alt"></i> Image Resizer</a></li>
+                        <li><a href="#"><i class="fas fa-file-image"></i> WebP to PNG</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-book"></i> Tutorials</a></li>
+                        <li><a href="#"><i class="fas fa-blog"></i> Blog</a></li>
+                        <li><a href="#"><i class="fas fa-question-circle"></i> Help Center</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-user-shield"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 GIF Maker Pro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const uploadBtn = document.getElementById('upload-btn');
+            const imageInput = document.getElementById('image-input');
+            const dropArea = document.getElementById('drop-area');
+            const previewContainer = document.getElementById('preview-container');
+            const framesContainer = document.getElementById('frames-container');
+            const frameCount = document.getElementById('frame-count');
+            const controls = document.getElementById('controls');
+            const speedSlider = document.getElementById('speed-slider');
+            const speedValue = document.getElementById('speed-value');
+            const qualitySlider = document.getElementById('quality-slider');
+            const generateBtn = document.getElementById('generate-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const resultContainer = document.getElementById('result-container');
+            const gifPreview = document.getElementById('gif-preview');
+            const downloadBtn = document.getElementById('download-btn');
+            const newGifBtn = document.getElementById('new-gif-btn');
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text');
+            const fileSize = document.getElementById('file-size');
+            const dimensions = document.getElementById('dimensions');
+            const framesCount = document.getElementById('frames-count');
+            const loopCount = document.getElementById('loop-count');
+            
+            let imageFiles = [];
+            let generatedGif = null;
+            
+            // Event listeners
+            uploadBtn.addEventListener('click', () => imageInput.click());
+            imageInput.addEventListener('change', handleImageUpload);
+            
+            // Handle drag and drop
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, highlight, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, unhighlight, false);
+            });
+            
+            function highlight() {
+                dropArea.style.borderColor = '#FFD700';
+                dropArea.style.backgroundColor = 'rgba(255, 215, 0, 0.1)';
+            }
+            
+            function unhighlight() {
+                dropArea.style.borderColor = '#FFD700';
+                dropArea.style.backgroundColor = 'rgba(42, 45, 66, 0.5)';
+            }
+            
+            dropArea.addEventListener('drop', handleDrop, false);
+            
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                if (files.length) {
+                    handleFiles(files);
+                }
+            }
+            
+            function handleImageUpload(e) {
+                if (e.target.files.length) {
+                    handleFiles(e.target.files);
+                }
+            }
+            
+            function handleFiles(files) {
+                // Filter only image files
+                const imageFilesArray = Array.from(files).filter(file => file.type.match('image.*'));
+                
+                if (imageFilesArray.length === 0) {
+                    alert('Please select image files only');
+                    return;
+                }
+                
+                // Check file sizes
+                const oversizedFiles = imageFilesArray.filter(file => file.size > 5 * 1024 * 1024);
+                if (oversizedFiles.length > 0) {
+                    alert('Some files exceed 5MB limit and were not added');
+                }
+                
+                // Add valid files
+                const validFiles = imageFilesArray.filter(file => file.size <= 5 * 1024 * 1024);
+                imageFiles = [...imageFiles, ...validFiles];
+                
+                // Update preview
+                updatePreview();
+            }
+            
+            function updatePreview() {
+                framesContainer.innerHTML = '';
+                frameCount.textContent = `(${imageFiles.length})`;
+                
+                imageFiles.forEach((file, index) => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const frameItem = document.createElement('div');
+                        frameItem.className = 'frame-item';
+                        
+                        const frameImg = document.createElement('img');
+                        frameImg.className = 'frame-image';
+                        frameImg.src = e.target.result;
+                        
+                        const frameNum = document.createElement('div');
+                        frameNum.className = 'frame-number';
+                        frameNum.textContent = index + 1;
+                        
+                        frameItem.appendChild(frameImg);
+                        frameItem.appendChild(frameNum);
+                        framesContainer.appendChild(frameItem);
+                    };
+                    reader.readAsDataURL(file);
+                });
+                
+                // Show preview and controls if we have at least 2 images
+                if (imageFiles.length >= 2) {
+                    previewContainer.style.display = 'block';
+                    controls.style.display = 'block';
+                } else if (imageFiles.length > 0) {
+                    previewContainer.style.display = 'block';
+                    controls.style.display = 'none';
+                }
+            }
+            
+            // Update speed value display
+            speedSlider.addEventListener('input', function() {
+                const value = parseInt(this.value);
+                speedValue.textContent = value;
+                
+                // Update speed description
+                const sliderValue = document.querySelectorAll('.slider-value')[0];
+                if (value < 50) {
+                    sliderValue.textContent = 'Very Fast';
+                    sliderValue.style.color = '#4ECDC4';
+                } else if (value < 100) {
+                    sliderValue.textContent = 'Fast';
+                    sliderValue.style.color = '#4ECDC4';
+                } else if (value < 200) {
+                    sliderValue.textContent = 'Normal';
+                    sliderValue.style.color = '#FFD700';
+                } else if (value < 400) {
+                    sliderValue.textContent = 'Slow';
+                    sliderValue.style.color = '#FF6B6B';
+                } else {
+                    sliderValue.textContent = 'Very Slow';
+                    sliderValue.style.color = '#FF6B6B';
+                }
+            });
+            
+            // Update quality value display
+            qualitySlider.addEventListener('input', function() {
+                const value = parseInt(this.value);
+                
+                // Update quality description
+                const sliderValue = document.querySelectorAll('.slider-value')[1];
+                if (value < 5) {
+                    sliderValue.textContent = 'Best Quality';
+                    sliderValue.style.color = '#4ECDC4';
+                } else if (value < 10) {
+                    sliderValue.textContent = 'High Quality';
+                    sliderValue.style.color = '#4ECDC4';
+                } else if (value < 15) {
+                    sliderValue.textContent = 'Balanced';
+                    sliderValue.style.color = '#FFD700';
+                } else if (value < 20) {
+                    sliderValue.textContent = 'Medium';
+                    sliderValue.style.color = '#FFD700';
+                } else {
+                    sliderValue.textContent = 'Small Size';
+                    sliderValue.style.color = '#FF6B6B';
+                }
+            });
+            
+            // Generate button event
+            generateBtn.addEventListener('click', function() {
+                if (imageFiles.length < 2) {
+                    alert('Please add at least 2 images to create a GIF');
+                    return;
+                }
+                
+                // Show progress
+                progressContainer.style.display = 'block';
+                progressBar.style.width = '0%';
+                progressText.textContent = 'Processing: 0%';
+                
+                // Create GIF
+                createGIF();
+            });
+            
+            function createGIF() {
+                // Create GIF instance
+                const gif = new GIF({
+                    workers: 2,
+                    quality: parseInt(qualitySlider.value),
+                    workerScript: 'https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.worker.js',
+                    width: 400,
+                    height: 300,
+                    repeat: parseInt(loopCount.value) || 0
+                });
+                
+                // Track progress
+                let framesProcessed = 0;
+                
+                // Add frames to GIF
+                imageFiles.forEach((file, index) => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = new Image();
+                        img.onload = function() {
+                            // Add image to GIF
+                            gif.addFrame(img, {
+                                delay: parseInt(speedSlider.value),
+                                copy: true
+                            });
+                            
+                            // Update progress
+                            framesProcessed++;
+                            const progress = Math.floor((framesProcessed / imageFiles.length) * 100);
+                            progressBar.style.width = `${progress}%`;
+                            progressText.textContent = `Processing: ${progress}%`;
+                            
+                            // Render if all frames added
+                            if (framesProcessed === imageFiles.length) {
+                                gif.render();
+                            }
+                        };
+                        img.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                });
+                
+                // Handle GIF completion
+                gif.on('finished', function(blob) {
+                    // Create URL for the GIF
+                    const gifUrl = URL.createObjectURL(blob);
+                    generatedGif = gifUrl;
+                    
+                    // Display the GIF
+                    gifPreview.src = gifUrl;
+                    
+                    // Update stats
+                    fileSize.textContent = `${(blob.size / 1024).toFixed(1)} KB`;
+                    dimensions.textContent = `${gif.width}×${gif.height}`;
+                    framesCount.textContent = imageFiles.length;
+                    
+                    // Show result section
+                    resultContainer.style.display = 'block';
+                    
+                    // Scroll to result
+                    resultContainer.scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+            
+            // Download button
+            downloadBtn.addEventListener('click', function() {
+                if (!generatedGif) return;
+                
+                const link = document.createElement('a');
+                link.download = 'animated.gif';
+                link.href = generatedGif;
+                link.click();
+            });
+            
+            // Reset button
+            resetBtn.addEventListener('click', function() {
+                resetTool();
+            });
+            
+            // New GIF button
+            newGifBtn.addEventListener('click', resetBtn.click);
+            
+            function resetTool() {
+                imageFiles = [];
+                generatedGif = null;
+                imageInput.value = '';
+                
+                dropArea.style.display = 'block';
+                previewContainer.style.display = 'none';
+                controls.style.display = 'none';
+                resultContainer.style.display = 'none';
+                progressContainer.style.display = 'none';
+                
+                framesContainer.innerHTML = '';
+                frameCount.textContent = '(0)';
+            }
+            
+            // Initialize display
+            speedSlider.dispatchEvent(new Event('input'));
+            qualitySlider.dispatchEvent(new Event('input'));
+        });
+    </script>
+</body>
+</html>
