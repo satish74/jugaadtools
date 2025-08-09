@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online tool to convert WebP images to PNG format. Optimize your images with adjustable compression settings for better quality and file size.">
+    <meta name="keywords" content="webp to png, image converter, webp converter, png converter, image optimization">
+    <title>WebP to PNG Converter | Free Online Tool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark-navy: #1E1E2F;
+            --text-light: #EAEAEA;
+            --header-blue: #2B2D42;
+            --accent-gold: #FFD700;
+            --card-bg: #3A3D5B;
+            --hover-gold: #FFD700;
+            --hover-text: #1E1E2F;
+            --button-hover: #E6C200;
+            --shadow-gold: rgba(255, 215, 0, 0.2);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark-navy);
+            color: var(--text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(43, 45, 66, 0.3) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(43, 45, 66, 0.3) 0%, transparent 20%);
+        }
+
+        header {
+            background-color: var(--header-blue);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0.8rem;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            background-color: var(--accent-gold);
+            color: var(--bg-dark-navy);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #2B2D42 0%, #1E1E2F 100%);
+            z-index: -1;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-gold);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .main-content {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .tool-container {
+            flex: 1;
+            min-width: 300px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px var(--shadow-gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-container::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .tool-title {
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+        }
+
+        .tool-title i {
+            font-size: 2rem;
+        }
+
+        .upload-area {
+            border: 2px dashed var(--accent-gold);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            background: rgba(42, 45, 66, 0.5);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            background: rgba(42, 45, 66, 0.8);
+        }
+
+        .upload-area i {
+            font-size: 3rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+
+        .upload-area p {
+            margin-bottom: 1rem;
+        }
+
+        #image-input {
+            display: none;
+        }
+
+        .upload-btn {
+            background-color: var(--accent-gold);
+            color: var(--bg-dark-navy);
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .upload-btn:hover {
+            background-color: var(--button-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow-gold);
+        }
+
+        .preview-container {
+            display: none;
+            margin-top: 2rem;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .preview-card {
+            text-align: center;
+        }
+
+        .preview-card h3 {
+            margin-bottom: 0.5rem;
+            color: var(--accent-gold);
+        }
+
+        #webp-preview, #png-preview {
+            max-width: 100%;
+            max-height: 200px;
+            border: 2px solid var(--accent-gold);
+            border-radius: 8px;
+            box-shadow: 0 5px 15px var(--shadow-gold);
+        }
+
+        .file-info {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        .controls {
+            margin-top: 2rem;
+            display: none;
+        }
+
+        .control-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .slider-container input[type="range"] {
+            flex: 1;
+            height: 8px;
+            -webkit-appearance: none;
+            background: rgba(255, 215, 0, 0.2);
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .slider-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .slider-value {
+            min-width: 50px;
+            text-align: center;
+            font-weight: bold;
+            color: var(--accent-gold);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            flex: 1;
+            min-width: 150px;
+            background-color: var(--accent-gold);
+            color: var(--bg-dark-navy);
+            padding: 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            background-color: var(--button-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px var(--shadow-gold);
+        }
+
+        .action-btn.secondary {
+            background-color: transparent;
+            color: var(--accent-gold);
+            border: 2px solid var(--accent-gold);
+        }
+
+        .action-btn.secondary:hover {
+            background-color: rgba(255, 215, 0, 0.1);
+        }
+
+        .result-container {
+            display: none;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .conversion-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-card {
+            background: rgba(42, 45, 66, 0.7);
+            border-radius: 8px;
+            padding: 1rem;
+            min-width: 150px;
+        }
+
+        .stat-card h4 {
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar {
+            width: 300px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px var(--shadow-gold);
+            height: fit-content;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.05) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .sidebar-title {
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .features-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+
+        .features-list i {
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+        }
+
+        .ad-container {
+            background: linear-gradient(45deg, #2B2D42, #1E1E2F);
+            border: 2px dashed var(--accent-gold);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .ad-placeholder {
+            color: var(--accent-gold);
+            padding: 1.5rem;
+            font-weight: bold;
+        }
+
+        .ad-placeholder p {
+            margin: 0.5rem 0;
+        }
+
+        .tips {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(42, 45, 66, 0.5);
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-gold);
+        }
+
+        .tips h3 {
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        footer {
+            background-color: var(--header-blue);
+            padding: 2rem 0;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-section h3 {
+            color: var(--accent-gold);
+            margin-bottom: 1.2rem;
+            font-size: 1.3rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.7rem;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-gold);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 215, 0, 0.1);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 900px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+            
+            .preview-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                width: 100%;
+            }
+            
+            .conversion-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <h1><i class="fas fa-exchange-alt"></i> WebP to PNG</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#"><i class="fas fa-tools"></i> Tools</a></li>
+                    <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Convert WebP Images to PNG Format</h2>
+            <p>Free online tool to convert WebP images to PNG format with adjustable quality settings. No uploads required - all processing happens in your browser.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container main-content">
+        <!-- Tool Section -->
+        <div class="tool-container">
+            <h2 class="tool-title"><i class="fas fa-sync-alt"></i> WebP to PNG Converter</h2>
+            
+            <div class="upload-area" id="drop-area">
+                <i class="fas fa-file-image"></i>
+                <h3>Upload WebP Image</h3>
+                <p>Drag & drop your WebP file or click to browse</p>
+                <p>Max file size: 5MB</p>
+                <button class="upload-btn" id="upload-btn">Select WebP File</button>
+                <input type="file" id="image-input" accept=".webp">
+            </div>
+            
+            <div class="preview-container" id="preview-container">
+                <div class="preview-grid">
+                    <div class="preview-card">
+                        <h3>Original WebP</h3>
+                        <img id="webp-preview">
+                        <div class="file-info" id="webp-info"></div>
+                    </div>
+                    <div class="preview-card">
+                        <h3>Converted PNG</h3>
+                        <img id="png-preview">
+                        <div class="file-info" id="png-info"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="controls" id="controls">
+                <div class="control-group">
+                    <label>PNG Quality: <span id="quality-value">90</span>%</label>
+                    <div class="slider-container">
+                        <input type="range" id="quality-slider" min="10" max="100" value="90">
+                        <span class="slider-value">High Quality</span>
+                    </div>
+                    <p class="file-info">Higher quality = Larger file size</p>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="action-btn" id="convert-btn"><i class="fas fa-sync-alt"></i> Convert to PNG</button>
+                    <button class="action-btn secondary" id="reset-btn"><i class="fas fa-redo"></i> Reset</button>
+                </div>
+            </div>
+            
+            <div class="result-container" id="result-container">
+                <h3><i class="fas fa-check-circle"></i> Conversion Complete!</h3>
+                
+                <div class="conversion-stats">
+                    <div class="stat-card">
+                        <h4>Original Size</h4>
+                        <p id="original-size">0 KB</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Converted Size</h4>
+                        <p id="converted-size">0 KB</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Size Reduction</h4>
+                        <p id="reduction">0%</p>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="action-btn" id="download-btn"><i class="fas fa-download"></i> Download PNG</button>
+                    <button class="action-btn secondary" id="new-convert-btn"><i class="fas fa-plus"></i> New Conversion</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h3 class="sidebar-title"><i class="fas fa-star"></i> Why Convert to PNG?</h3>
+            <ul class="features-list">
+                <li><i class="fas fa-check-circle"></i> PNG supports lossless compression</li>
+                <li><i class="fas fa-check-circle"></i> Ideal for images with text or sharp edges</li>
+                <li><i class="fas fa-check-circle"></i> Supports transparency (alpha channel)</li>
+                <li><i class="fas fa-check-circle"></i> Widely compatible with all devices</li>
+                <li><i class="fas fa-check-circle"></i> Perfect for printing and professional use</li>
+            </ul>
+            
+            <div class="ad-container">
+                <div class="ad-placeholder">
+                    <p>Advertisement Space (300x250)</p>
+                    <p>Google AdSense Unit ID: ADS-XXXX-YYY</p>
+                </div>
+            </div>
+            
+            <div class="tips">
+                <h3><i class="fas fa-lightbulb"></i> Pro Tips</h3>
+                <p><strong>Quality Settings:</strong> For web use, 80-90% quality provides the best balance between quality and file size.</p>
+                <p><strong>Transparency:</strong> PNG preserves transparency from WebP images.</p>
+                <p><strong>Browser Support:</strong> PNG works on all browsers, while WebP has limited support in older browsers.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer Ad -->
+    <div class="container">
+        <div class="ad-container">
+            <div class="ad-placeholder">
+                <p>Advertisement Space (728x90)</p>
+                <p>Google AdSense Unit ID: ADS-XXXX-ZZZ</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>WebP to PNG Converter</h3>
+                    <p>Free online tool for converting WebP images to PNG format with adjustable quality settings.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Popular Tools</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-image"></i> Image Resizer</a></li>
+                        <li><a href="#"><i class="fas fa-crop-alt"></i> Image Cropper</a></li>
+                        <li><a href="#"><i class="fas fa-file-code"></i> Base64 Converter</a></li>
+                        <li><a href="#"><i class="fas fa-qrcode"></i> QR Code Generator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-book"></i> Tutorials</a></li>
+                        <li><a href="#"><i class="fas fa-blog"></i> Blog</a></li>
+                        <li><a href="#"><i class="fas fa-question-circle"></i> Help Center</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-user-shield"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 WebP to PNG Converter. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const uploadBtn = document.getElementById('upload-btn');
+            const imageInput = document.getElementById('image-input');
+            const dropArea = document.getElementById('drop-area');
+            const previewContainer = document.getElementById('preview-container');
+            const webpPreview = document.getElementById('webp-preview');
+            const pngPreview = document.getElementById('png-preview');
+            const webpInfo = document.getElementById('webp-info');
+            const pngInfo = document.getElementById('png-info');
+            const controls = document.getElementById('controls');
+            const qualitySlider = document.getElementById('quality-slider');
+            const qualityValue = document.getElementById('quality-value');
+            const convertBtn = document.getElementById('convert-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const resultContainer = document.getElementById('result-container');
+            const downloadBtn = document.getElementById('download-btn');
+            const newConvertBtn = document.getElementById('new-convert-btn');
+            const originalSize = document.getElementById('original-size');
+            const convertedSize = document.getElementById('converted-size');
+            const reduction = document.getElementById('reduction');
+            
+            let originalImage = null;
+            let convertedImage = null;
+            let originalFileSize = 0;
+            
+            // Event listeners
+            uploadBtn.addEventListener('click', () => imageInput.click());
+            imageInput.addEventListener('change', handleImageUpload);
+            
+            // Handle drag and drop
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, highlight, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, unhighlight, false);
+            });
+            
+            function highlight() {
+                dropArea.style.borderColor = '#FFD700';
+                dropArea.style.backgroundColor = 'rgba(255, 215, 0, 0.1)';
+            }
+            
+            function unhighlight() {
+                dropArea.style.borderColor = '#FFD700';
+                dropArea.style.backgroundColor = 'rgba(42, 45, 66, 0.5)';
+            }
+            
+            dropArea.addEventListener('drop', handleDrop, false);
+            
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                if (files.length) {
+                    handleFiles(files[0]);
+                }
+            }
+            
+            function handleImageUpload(e) {
+                if (e.target.files.length) {
+                    handleFiles(e.target.files[0]);
+                }
+            }
+            
+            function handleFiles(file) {
+                if (!file.type.match('image/webp')) {
+                    alert('Please select a WebP image file');
+                    return;
+                }
+                
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('File size exceeds 5MB limit');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    originalImage = e.target.result;
+                    originalFileSize = file.size;
+                    showPreview(e.target.result, file);
+                };
+                reader.readAsDataURL(file);
+            }
+            
+            function showPreview(imageSrc, file) {
+                // Hide upload area, show preview and controls
+                dropArea.style.display = 'none';
+                previewContainer.style.display = 'block';
+                controls.style.display = 'block';
+                
+                // Set up image preview
+                webpPreview.src = imageSrc;
+                
+                // Display file info
+                const fileSize = (file.size / 1024).toFixed(2);
+                webpInfo.innerHTML = `
+                    <strong>${file.name}</strong> | 
+                    ${fileSize} KB | 
+                    WebP
+                `;
+                
+                pngInfo.textContent = 'PNG preview will appear after conversion';
+            }
+            
+            // Update quality value display
+            qualitySlider.addEventListener('input', function() {
+                const value = parseInt(this.value);
+                qualityValue.textContent = value;
+                
+                // Update quality description
+                const sliderValue = document.querySelector('.slider-value');
+                if (value < 40) {
+                    sliderValue.textContent = 'Low Quality';
+                    sliderValue.style.color = '#FF6B6B';
+                } else if (value < 70) {
+                    sliderValue.textContent = 'Medium Quality';
+                    sliderValue.style.color = '#FFD700';
+                } else {
+                    sliderValue.textContent = 'High Quality';
+                    sliderValue.style.color = '#4ECDC4';
+                }
+            });
+            
+            // Convert button event
+            convertBtn.addEventListener('click', function() {
+                if (!originalImage) return;
+                
+                // Create temporary image to get dimensions
+                const img = new Image();
+                img.src = originalImage;
+                
+                img.onload = function() {
+                    // Create canvas to convert image
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Set canvas dimensions
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    
+                    // Draw image on canvas
+                    ctx.drawImage(img, 0, 0);
+                    
+                    // Convert to PNG with selected quality
+                    const quality = parseInt(qualitySlider.value) / 100;
+                    const pngDataUrl = canvas.toDataURL('image/png', quality);
+                    
+                    // Display converted image
+                    pngPreview.src = pngDataUrl;
+                    convertedImage = pngDataUrl;
+                    
+                    // Calculate file sizes
+                    const pngSize = Math.floor((pngDataUrl.length - 'data:image/png;base64,'.length) * 0.75);
+                    const pngSizeKB = (pngSize / 1024).toFixed(2);
+                    const originalSizeKB = (originalFileSize / 1024).toFixed(2);
+                    
+                    // Update file info
+                    pngInfo.innerHTML = `
+                        Converted PNG | 
+                        ${pngSizeKB} KB | 
+                        ${img.width}×${img.height}px
+                    `;
+                    
+                    // Show conversion stats
+                    const sizeReduction = 100 - (pngSize / originalFileSize * 100);
+                    originalSize.textContent = `${originalSizeKB} KB`;
+                    convertedSize.textContent = `${pngSizeKB} KB`;
+                    reduction.textContent = `${Math.abs(sizeReduction).toFixed(1)}% ${sizeReduction > 0 ? 'smaller' : 'larger'}`;
+                    
+                    // Show result section
+                    resultContainer.style.display = 'block';
+                    
+                    // Scroll to result
+                    resultContainer.scrollIntoView({ behavior: 'smooth' });
+                };
+            });
+            
+            // Download button
+            downloadBtn.addEventListener('click', function() {
+                if (!convertedImage) return;
+                
+                const link = document.createElement('a');
+                link.download = 'converted-image.png';
+                link.href = convertedImage;
+                link.click();
+            });
+            
+            // Reset button
+            resetBtn.addEventListener('click', function() {
+                resetTool();
+            });
+            
+            // New conversion button
+            newConvertBtn.addEventListener('click', resetBtn.click);
+            
+            function resetTool() {
+                originalImage = null;
+                convertedImage = null;
+                originalFileSize = 0;
+                imageInput.value = '';
+                
+                dropArea.style.display = 'block';
+                previewContainer.style.display = 'none';
+                controls.style.display = 'none';
+                resultContainer.style.display = 'none';
+            }
+            
+            // Initialize quality display
+            qualitySlider.dispatchEvent(new Event('input'));
+        });
+    </script>
+</body>
+</html>
