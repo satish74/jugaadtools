@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fancy Text Generator — Stylish Unicode Fonts & Effects</title>
+  <meta name="description" content="Create fancy text using many Unicode styles (bold, cursive, small caps, bubble, upside-down). Copy, download as text or PNG with optimized background images.">
+  <link rel="canonical" href="/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Fancy Text Generator — Stylish Unicode Fonts & Effects">
+  <meta property="og:description" content="Create fancy text using many Unicode styles (bold, cursive, small caps, bubble, upside-down). Copy, download as text or PNG with optimized background images.">
+  <meta property="og:type" content="website">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"Fancy Text Generator",
+    "url":"/",
+    "description":"Generate fancy Unicode text styles and download as text or PNG with optional compressed backgrounds.",
+    "applicationCategory":"Utilities"
+  }
+  </script>
+
+  <!-- AdSense placeholder -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
+  <script>
+    // Replace with your AdSense client id like: 'ca-pub-1234567890123456'
+    window.AD_CLIENT = 'YOUR_ADSENSE_CLIENT_ID';
+    window.AD_UNIT_ID = 'YOUR_ADSENSE_AD_UNIT_ID';
+  </script>
+
+  <style>
+    :root{
+      --bg:#1E1E2F; --text:#EAEAEA; --header:#2B2D42; --accent:#FFD700; --accent-deep:#E6C200; --card:#3A3D5B; --shadow:rgba(255,215,0,0.2); --max-width:1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Arial;background:var(--bg);color:var(--text);padding:24px;display:flex;justify-content:center;-webkit-font-smoothing:antialiased}
+    .container{width:100%;max-width:var(--max-width)}
+    header{background:var(--header);padding:18px;border-radius:12px;box-shadow:0 6px 24px var(--shadow);display:flex;gap:16px;align-items:center;margin-bottom:18px}
+    .logo{display:flex;align-items:center;gap:12px}
+    .mark{width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-deep));display:flex;align-items:center;justify-content:center;color:var(--header);font-weight:800;font-size:18px;box-shadow:0 6px 18px var(--shadow)}
+    header h1{font-size:18px;margin:0}
+    header p{margin:0;opacity:0.9;font-size:13px}
+
+    main{display:grid;grid-template-columns:1fr 360px;gap:18px}
+    .card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 8px 30px var(--shadow);transition:background .25s,color .25s,transform .08s}
+    .card:hover{background:var(--accent);color:var(--bg)}
+    .card:hover .muted{color:var(--bg)}
+
+    label{font-size:13px}
+    textarea,input,select,button{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px;border-radius:8px;color:var(--text);font-size:14px}
+    textarea{min-height:120px;width:100%;resize:vertical;padding:12px;border-radius:8px}
+
+    .controls{display:flex;flex-direction:column;gap:12px}
+    .tool-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:var(--accent);color:var(--header);font-weight:700;border:none;cursor:pointer;box-shadow:0 8px 24px var(--shadow);transition:background .15s,transform .08s}
+    .btn:hover{background:var(--accent-deep)}
+    .small{font-size:13px;padding:8px 10px;border-radius:8px}
+
+    .preview{border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.03);margin-top:12px}
+    .preview .canvas-wrap{min-height:160px;display:flex;align-items:center;justify-content:center;padding:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent)}
+
+    .style-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .style-item{padding:8px 10px;border-radius:8px;background:rgba(0,0,0,0.04);cursor:pointer}
+
+    aside{position:relative}
+    .sidebar{position:sticky;top:24px;display:flex;flex-direction:column;gap:12px}
+    .ad-slot{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:10px;min-height:90px;display:flex;align-items:center;justify-content:center}
+
+    .file-row{display:flex;align-items:center;justify-content:space-between;padding:8px;border-radius:8px;background:rgba(0,0,0,0.04)}
+    .muted{color:rgba(234,234,234,0.8);font-size:13px}
+
+    @media (max-width:980px){main{grid-template-columns:1fr}aside{order:2}}
+    footer{margin-top:18px;text-align:center;color:rgba(234,234,234,0.6);font-size:13px}
+
+    /* hover effects per spec */
+    .card:hover{background:#FFD700;color:#1E1E2F}
+    .btn{background:var(--accent);color:#1E1E2F}
+    .btn:hover{background:#E6C200}
+    .card{box-shadow:0 8px 30px rgba(255,215,0,0.2)}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo"><div class="mark">FT</div>
+        <div>
+          <h1>Fancy Text Generator</h1>
+          <p class="muted">Generate stylish Unicode text, copy, or download as text/PNG with optional compressed backgrounds.</p>
+        </div>
+      </div>
+      <div style="margin-left:auto" class="muted">Theme: Dark Navy • Accent: Gold</div>
+    </header>
+
+    <main>
+      <section class="card" aria-labelledby="tool-heading">
+        <h2 id="tool-heading">Create fancy variants of your text</h2>
+        <div class="controls">
+          <div>
+            <label for="inputText">Enter text</label>
+            <textarea id="inputText" placeholder="Type something — example: Hello World">Hello World</textarea>
+          </div>
+
+          <div>
+            <label>Styles</label>
+            <div class="style-list" id="styleList"></div>
+          </div>
+
+          <div>
+            <label for="extraOptions">Effects</label>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+              <label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="reverse"> Reverse</label>
+              <label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="spaceOut"> Space out</label>
+              <label style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="leet"> Leet-speak</label>
+            </div>
+          </div>
+
+          <div class="tool-actions">
+            <button id="generateBtn" class="btn small">Generate</button>
+            <button id="copyBtn" class="btn small">Copy</button>
+            <button id="downloadTextBtn" class="btn small">Download .txt</button>
+            <button id="downloadPngBtn" class="btn small">Download PNG</button>
+            <button id="clearBtn" class="btn small" style="background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.06)">Clear</button>
+          </div>
+
+          <div style="margin-top:12px">
+            <label for="output">Preview / Output</label>
+            <textarea id="output" readonly placeholder="Generated fancy text will appear here..."></textarea>
+          </div>
+
+          <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
+            <div style="flex:1">
+              <label for="fileInput">Upload background image (optional)</label>
+              <input id="fileInput" type="file" accept="image/*">
+            </div>
+            <div style="width:160px">
+              <label for="compression">Image compression</label>
+              <select id="compression"><option value="0.95">High</option><option value="0.8" selected>Balanced</option><option value="0.6">Small</option><option value="0.4">Very small</option></select>
+            </div>
+          </div>
+
+          <div class="preview" id="previewWrap"><div class="canvas-wrap" id="previewArea"><div class="muted">No image uploaded — preview will appear here</div></div></div>
+
+        </div>
+      </section>
+
+      <aside>
+        <div class="sidebar">
+          <div class="card">
+            <h3 style="margin:0 0 8px 0">Ad & Monetization</h3>
+            <p class="muted">Insert your AdSense Publisher ID and Ad Unit ID below to enable ad placeholders. Only enable on approved domains.</p>
+            <div style="display:flex;gap:8px;margin-top:8px"><input id="adClient" placeholder="ca-pub-XXXXXXXXXXXX" class="small" style="flex:1"></div>
+            <div style="display:flex;gap:8px;margin-top:8px"><input id="adUnit" placeholder="Ad Unit ID (ex: 1234567890)" class="small" style="flex:1"></div>
+            <div style="margin-top:8px;display:flex;gap:8px"><button id="applyAds" class="btn small">Apply AdSense IDs</button></div>
+          </div>
+
+          <div class="ad-slot card" id="adTop">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="" data-ad-slot="" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <p class="muted" style="margin-top:8px">Top Ad Space</p>
+          </div>
+
+          <div class="card ad-slot" id="adSticky">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="" data-ad-slot="" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <p class="muted" style="margin-top:8px">Sidebar Ad Space</p>
+          </div>
+
+          <div class="card">
+            <h4 style="margin:0 0 8px 0">SEO & Performance</h4>
+            <ul style="margin:0;padding-left:18px;color:rgba(234,234,234,0.85)">
+              <li>Client-side transformations for privacy and speed</li>
+              <li>Structured metadata, Open Graph and canonical link</li>
+              <li>Deferred assets and minimal external dependencies</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer>Built with ❤️ — Fancy Text Generator · Lightweight & mobile-friendly</footer>
+  </div>
+
+  <script>
+    // Fancy text mappings (subset of transforms). Many Unicode variants do not have full coverage but work for ASCII letters.
+    const variants = {
+      'Bold': {A: '𝐀', a:'𝐚', mapOffset:0, upper:true},
+      'Italic': {A:'𝐴', a:'𝑎'},
+      'Bold Italic': {A:'𝑨', a:'𝒂'},
+      'Script': {A:'𝒜', a:'𝒶'},
+      'Fraktur': {A:'𝔄', a:'𝔞'},
+      'Double-struck': {A:'𝔸', a:'𝕒'},
+      'Monospace': {A:'𝙰', a:'𝚊'},
+      'Small Caps': null, // handled separately
+      'Bubble': null, // handled separately
+      'Cursive': null,
+      'Upside-down': null
+    };
+
+    // small caps mapping
+    const smallCapsMap = {
+      a:'ᴀ',b:'ʙ',c:'ᴄ',d:'ᴅ',e:'ᴇ',f:'ꜰ',g:'ɢ',h:'ʜ',i:'ɪ',j:'ᴊ',k:'ᴋ',l:'ʟ',m:'ᴍ',n:'ɴ',o:'ᴏ',p:'ᴘ',q:'ǫ',r:'ʀ',s:'s',t:'ᴛ',u:'ᴜ',v:'ᴠ',w:'ᴡ',x:'x',y:'ʏ',z:'ᴢ'
+    };
+
+    // bubble letters
+    const bubbleMap = (function(){
+      const up = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+      const down = 'abcdefghijklmnopqrstuvwxyz'.split('');
+      const upMap = {};
+      const downMap = {};
+      const bubbleUpper = '🄰🄱🄲🄳🄴🄵🄶🄷🄸🄹🄺🄻🄼🄽🄾🄿🅀🅁🅂🅃🅄🅅🅆🅇🅈🅉'.split('');
+      const bubbleLower = 'ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ'.split('');
+      up.forEach((c,i)=>upMap[c]=bubbleUpper[i]); down.forEach((c,i)=>downMap[c]=bubbleLower[i]);
+      return {upMap,downMap};
+    })();
+
+    // upside-down map (partial)
+    const upsideDownMap = {a:'ɐ',b:'q',c:'ɔ',d:'p',e:'ǝ',f:'ɟ',g:'ɓ',h:'ɥ',i:'ᴉ',j:'ɾ',k:'ʞ',l:'ʃ',m:'ɯ',n:'u',o:'o',p:'d',q:'b',r:'ɹ',s:'s',t:'ʇ',u:'n',v:'ʌ',w:'ʍ',x:'x',y:'ʎ',z:'z','.':'˙',',':'\'',"?":'¿','!':'¡','"':'„',"'":',','(':')',')':'(', '[':']',']':'[','{':'}','}':'{'};
+
+    // leet map
+    const leetMap = {'a':'4','e':'3','i':'1','o':'0','s':'5','t':'7'};
+
+    // build style list dynamically
+    const styleKeys = ['Normal','Bold','Italic','Bold Italic','Script','Fraktur','Double-struck','Monospace','Small Caps','Bubble','Upside-down','All Caps','Lowercase','Title Case'];
+
+    const styleListEl = document.getElementById('styleList');
+    styleKeys.forEach(k=>{const el=document.createElement('div');el.className='style-item';el.textContent=k;el.dataset.key=k;el.addEventListener('click', ()=>{document.querySelectorAll('.style-item').forEach(x=>x.style.background='');el.style.background='rgba(0,0,0,0.15)'});styleListEl.appendChild(el)});
+
+    const inputText = document.getElementById('inputText');
+    const generateBtn = document.getElementById('generateBtn');
+    const output = document.getElementById('output');
+    const copyBtn = document.getElementById('copyBtn');
+    const downloadTextBtn = document.getElementById('downloadTextBtn');
+    const downloadPngBtn = document.getElementById('downloadPngBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const reverseCheckbox = document.getElementById('reverse');
+    const spaceOutCheckbox = document.getElementById('spaceOut');
+    const leetCheckbox = document.getElementById('leet');
+
+    function transformText(text, style){
+      if(!text) return '';
+      if(style==='Normal') return text;
+      if(style==='All Caps') return text.toUpperCase();
+      if(style==='Lowercase') return text.toLowerCase();
+      if(style==='Title Case') return text.replace(/\w\S*/g, w=>w.charAt(0).toUpperCase()+w.substr(1).toLowerCase());
+      if(style==='Small Caps') return text.split('').map(c=>{const lc=c.toLowerCase();return smallCapsMap[lc]||c}).join('');
+      if(style==='Bubble') return text.split('').map(c=>{if(/[A-Z]/.test(c)) return bubbleMap.upMap[c]; if(/[a-z]/.test(c)) return bubbleMap.downMap[c]; return c}).join('');
+      if(style==='Upside-down') return text.split('').reverse().map(c=>upsideDownMap[c.toLowerCase()]||c).join('');
+
+      // try using Unicode Mathematical Alphanumeric Symbols ranges for some styles
+      const buf = [];
+      for(const ch of text){
+        const code = ch.charCodeAt(0);
+        if(ch>='A' && ch<='Z'){
+          switch(style){
+            case 'Bold': buf.push(String.fromCodePoint(0x1D400 + (code - 65))); break;
+            case 'Italic': buf.push(String.fromCodePoint(0x1D434 + (code - 65))); break;
+            case 'Bold Italic': buf.push(String.fromCodePoint(0x1D468 + (code - 65))); break;
+            case 'Script': buf.push(String.fromCodePoint(0x1D49C + (code - 65))); break;
+            case 'Fraktur': buf.push(String.fromCodePoint(0x1D504 + (code - 65))); break;
+            case 'Double-struck': buf.push(String.fromCodePoint(0x1D538 + (code - 65))); break;
+            case 'Monospace': buf.push(String.fromCodePoint(0x1D670 + (code - 65))); break;
+            default: buf.push(ch);
+          }
+        } else if(ch>='a' && ch<='z'){
+          const c2 = ch.charCodeAt(0);
+          switch(style){
+            case 'Bold': buf.push(String.fromCodePoint(0x1D41A + (c2 - 97))); break;
+            case 'Italic': buf.push(String.fromCodePoint(0x1D44E + (c2 - 97))); break;
+            case 'Bold Italic': buf.push(String.fromCodePoint(0x1D482 + (c2 - 97))); break;
+            case 'Script': buf.push(String.fromCodePoint(0x1D4B6 + (c2 - 97))); break;
+            case 'Fraktur': buf.push(String.fromCodePoint(0x1D51E + (c2 - 97))); break;
+            case 'Double-struck': buf.push(String.fromCodePoint(0x1D552 + (c2 - 97))); break;
+            case 'Monospace': buf.push(String.fromCodePoint(0x1D68A + (c2 - 97))); break;
+            default: buf.push(ch);
+          }
+        } else {
+          buf.push(ch);
+        }
+      }
+      return buf.join('');
+    }
+
+    function applyEffects(txt){
+      let out = txt;
+      if(leetCheckbox.checked) out = out.split('').map(c=>leetMap[c.toLowerCase()]||c).join('');
+      if(spaceOutCheckbox.checked) out = out.split('').join(' ');
+      if(reverseCheckbox.checked) out = out.split('').reverse().join('');
+      return out;
+    }
+
+    generateBtn.addEventListener('click', ()=>{
+      const selected = document.querySelector('.style-item[style*="background:rgba(0,0,0,0.15)"]');
+      const style = selected ? selected.dataset.key : 'Normal';
+      const base = inputText.value || '';
+      const transformed = transformText(base, style);
+      const final = applyEffects(transformed);
+      output.value = final;
+    });
+
+    copyBtn.addEventListener('click', async ()=>{try{await navigator.clipboard.writeText(output.value);copyBtn.textContent='Copied!';setTimeout(()=>copyBtn.textContent='Copy',1200)}catch(e){alert('Copy failed: '+e.message)}});
+
+    downloadTextBtn.addEventListener('click', ()=>{const blob=new Blob([output.value||''],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='fancy_text.txt';a.click();});
+
+    clearBtn.addEventListener('click', ()=>{inputText.value='';output.value='';});
+
+    // PNG generation with optional background image
+    const fileInput = document.getElementById('fileInput');
+    const compression = document.getElementById('compression');
+    const previewArea = document.getElementById('previewArea');
+    let uploadedImage = null;
+
+    fileInput.addEventListener('change', async (e)=>{const f=e.target.files[0]; if(!f) return; const dataURL = await toDataURL(f); const comp = await compressImage(dataURL, parseFloat(compression.value)); uploadedImage = comp; renderPreview(comp);});
+
+    function toDataURL(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file);});}
+    function compressImage(dataURL, quality){return new Promise((res)=>{const img=new Image();img.onload=()=>{const max=1200;const scale=Math.min(1, max/Math.max(img.naturalWidth,img.naturalHeight));const w=Math.round(img.naturalWidth*scale);const h=Math.round(img.naturalHeight*scale);const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;const ctx=canvas.getContext('2d');ctx.fillStyle='#1E1E2F';ctx.fillRect(0,0,w,h);ctx.drawImage(img,0,0,w,h);res(canvas.toDataURL('image/jpeg', quality));};img.src=dataURL;});}
+    function renderPreview(dataURL){previewArea.innerHTML=''; if(!dataURL){previewArea.innerHTML='<div class="muted">No image uploaded — preview will appear here</div>';return} const img=document.createElement('img');img.src=dataURL;img.style.maxWidth='100%';img.style.height='auto';img.style.borderRadius='8px';previewArea.appendChild(img);} 
+
+    downloadPngBtn.addEventListener('click', async ()=>{
+      const txt = output.value || '';
+      const canvas = document.createElement('canvas'); const w=1200; const h=630; canvas.width=w; canvas.height=h; const ctx = canvas.getContext('2d');
+      if(uploadedImage){ const bg = new Image(); bg.crossOrigin='anonymous'; bg.src = uploadedImage; await new Promise(r=>bg.onload=r); const scale = Math.max(w/bg.naturalWidth, h/bg.naturalHeight); const nw = bg.naturalWidth*scale; const nh = bg.naturalHeight*scale; ctx.drawImage(bg, (w-nw)/2, (h-nh)/2, nw, nh); } else { ctx.fillStyle='#1E1E2F'; ctx.fillRect(0,0,w,h); }
+      // overlay
+      ctx.fillStyle='rgba(0,0,0,0.25)'; ctx.fillRect(0,0,w,h);
+      ctx.fillStyle='#FFD700'; ctx.font='bold 48px Inter, Arial'; ctx.textAlign='center'; ctx.textBaseline='middle';
+      const lines = wrapText(ctx, txt, w-120);
+      const startY = h/2 - (lines.length-1)*30;
+      lines.forEach((line,i)=>{ctx.fillText(line, w/2, startY + i*60)});
+      const a=document.createElement('a'); a.href = canvas.toDataURL('image/png'); a.download = 'fancy_text.png'; a.click();
+    });
+
+    function wrapText(ctx, text, maxWidth){ const words = text.split(/\s+/); const lines=[]; let cur=''; for(const w of words){ const test = cur ? cur+' '+w : w; const width = ctx.measureText(test).width; if(width > maxWidth && cur){ lines.push(cur); cur = w; } else { cur = test; } } if(cur) lines.push(cur); return lines.slice(0,6); }
+
+    // Apply AdSense IDs
+    document.getElementById('applyAds').addEventListener('click', ()=>{
+      const client = document.getElementById('adClient').value.trim();
+      const slot = document.getElementById('adUnit').value.trim();
+      if(!client || !slot){alert('Please enter both AdSense client ID and Ad Unit ID.');return}
+      document.querySelectorAll('ins.adsbygoogle').forEach(ins=>{ins.setAttribute('data-ad-client', client);ins.setAttribute('data-ad-slot', slot);});
+      try{(adsbygoogle = window.adsbygoogle || []).push({});}catch(e){}
+      alert('AdSense IDs applied. Ensure your domain is approved by AdSense before enabling live ads.');
+    });
+
+    // keyboard shortcuts
+    inputText.addEventListener('keydown', (e)=>{if((e.ctrlKey||e.metaKey) && e.key==='Enter'){generateBtn.click();}});
+
+    // init
+    renderPreview(null);
+  </script>
+</body>
+</html>
