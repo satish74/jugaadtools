@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Screenshot to PDF Converter — Fast & Optimized</title>
+  <meta name="description" content="Convert screenshots and images to high-quality optimized PDFs. Choose compression level, page size, and download instantly. Mobile-friendly & SEO-optimized.">
+  <link rel="canonical" href="/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Screenshot to PDF Converter — Fast & Optimized">
+  <meta property="og:description" content="Convert screenshots and images to high-quality optimized PDFs. Choose compression level, page size, and download instantly.">
+  <meta property="og:type" content="website">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Screenshot to PDF Converter",
+    "url": "/",
+    "description": "Convert screenshots and images to optimized PDFs with compression controls and responsive UI.",
+    "operatingSystem": "All",
+    "applicationCategory": "Productivity"
+  }
+  </script>
+
+  <!-- AdSense placeholder: Replace YOUR_ADSENSE_CLIENT_ID with your publisher ID (ca-pub-XXXXXXXXXXXX) -->
+  <!-- NOTE: For development/testing, do NOT load AdSense. Only enable on approved domains. -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
+  <script>
+    // Replace with your AdSense client id like: 'ca-pub-1234567890123456'
+    window.AD_CLIENT = 'YOUR_ADSENSE_CLIENT_ID';
+    // Replace with actual ad-slot ids in the ad unit divs below
+    window.AD_UNIT_ID = 'YOUR_ADSENSE_AD_UNIT_ID';
+  </script>
+
+  <!-- CSS Theme -->
+  <style>
+    :root{
+      --bg: #1E1E2F;
+      --text: #EAEAEA;
+      --header: #2B2D42;
+      --accent: #FFD700;
+      --accent-deep: #E6C200;
+      --card: #3A3D5B;
+      --shadow: rgba(255,215,0,0.2);
+      --max-width: 1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background:var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.4;
+      padding:24px;
+      display:flex;
+      justify-content:center;
+    }
+    .container{
+      width:100%;
+      max-width:var(--max-width);
+    }
+    header{
+      background:var(--header);
+      padding:18px 20px;
+      border-radius:12px;
+      box-shadow:0 6px 24px var(--shadow);
+      display:flex;
+      gap:16px;
+      align-items:center;
+      margin-bottom:18px;
+    }
+    .logo{
+      display:flex;align-items:center;gap:12px
+    }
+    .logo .mark{
+      width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-deep));display:flex;align-items:center;justify-content:center;color:var(--header);font-weight:800;font-size:20px;box-shadow:0 6px 18px var(--shadow)
+    }
+    header h1{font-size:18px;margin:0}
+    header p{margin:0;opacity:0.9;font-size:13px}
+
+    main{display:grid;grid-template-columns:1fr 380px;gap:18px}
+
+    /* Tool Card */
+    .card{
+      background:var(--card);
+      border-radius:12px;
+      padding:18px;
+      box-shadow:0 8px 30px var(--shadow);
+      transition:background .25s, color .25s, transform .12s;
+    }
+    .card:hover{background:var(--accent);color:var(--bg)}
+    .card:hover .muted{color:var(--bg)}
+    .card h2{margin:0 0 8px 0}
+    .muted{color:rgba(234,234,234,0.75);font-size:13px}
+
+    .controls{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+    label{font-size:13px}
+    input[type=file]{background:transparent;color:var(--text)}
+
+    .preview{
+      border-radius:8px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,0.03);
+      margin-top:12px;
+    }
+    .preview .canvas-wrap{min-height:200px;display:flex;align-items:center;justify-content:center;padding:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent)}
+
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:var(--accent);color:var(--header);font-weight:700;border:none;cursor:pointer;box-shadow:0 8px 24px var(--shadow);transition:background .15s, transform .08s}
+    .btn:hover{background:var(--accent-deep)}
+    .btn:active{transform:translateY(1px)}
+
+    .small{font-size:13px;padding:8px 10px;border-radius:8px}
+
+    /* Sidebar */
+    aside{position:relative}
+    .sidebar{position:sticky;top:24px;display:flex;flex-direction:column;gap:12px}
+    .ad-slot{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:10px;min-height:90px;display:flex;align-items:center;justify-content:center}
+    .ad-slot p{margin:0;font-size:13px;color:rgba(234,234,234,0.7)}
+
+    /* Responsive */
+    @media (max-width:980px){
+      main{grid-template-columns:1fr}
+      aside{order:2}
+    }
+
+    /* Footer */
+    footer{margin-top:18px;text-align:center;color:rgba(234,234,234,0.6);font-size:13px}
+
+    /* file list */
+    .file-list{display:flex;flex-direction:column;gap:8px}
+    .file-row{display:flex;align-items:center;justify-content:space-between;padding:8px;border-radius:8px;background:rgba(0,0,0,0.04)}
+
+    /* inputs & selects */
+    select,input,textarea{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px;border-radius:8px;color:var(--text);font-size:14px}
+
+    /* helper */
+    .muted-block{font-size:13px;color:rgba(234,234,234,0.7)}
+
+  </style>
+
+  <!-- Libraries (defer for performance) -->
+  <script defer src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <div class="mark">SP</div>
+        <div>
+          <h1>Screenshot → PDF Converter</h1>
+          <p class="muted">Fast, responsive & image-optimized — choose compression and page settings.</p>
+        </div>
+      </div>
+      <div style="margin-left:auto" class="muted">Theme: Dark Navy • Accent: Gold</div>
+    </header>
+
+    <main>
+      <!-- Main Tool Card -->
+      <section class="card" aria-labelledby="tool-heading">
+        <h2 id="tool-heading">Convert screenshots & images to PDF</h2>
+        <p class="muted">Upload images, paste content or capture the visible preview. Choose compression level for optimized PDF size.</p>
+
+        <div class="controls">
+          <div>
+            <label for="fileInput">Upload image(s) or screenshots</label>
+            <input id="fileInput" type="file" accept="image/*" multiple>
+          </div>
+
+          <div>
+            <label for="compression">Compression level (JPEG quality)</label>
+            <select id="compression">
+              <option value="0.95">High quality (0.95)</option>
+              <option value="0.8" selected>Balanced (0.8)</option>
+              <option value="0.6">Small size (0.6)</option>
+              <option value="0.4">Very small (0.4)</option>
+            </select>
+            <div class="muted-block">Tip: Lower values reduce file size but lose details.</div>
+          </div>
+
+          <div style="display:flex;gap:8px;align-items:center">
+            <div style="flex:1">
+              <label for="pageSize">Page size</label>
+              <select id="pageSize">
+                <option value="a4" selected>A4 (portrait)</option>
+                <option value="letter">Letter</option>
+                <option value="a4-landscape">A4 (landscape)</option>
+              </select>
+            </div>
+            <div style="width:120px">
+              <label for="dpi">DPI</label>
+              <input id="dpi" type="number" min="72" max="600" value="150">
+            </div>
+          </div>
+
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button id="capturePreview" class="btn small">Capture Preview</button>
+            <button id="convertBtn" class="btn small">Convert to PDF</button>
+            <button id="clearBtn" class="btn small" style="background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.06)">Clear</button>
+          </div>
+
+          <div class="preview" aria-live="polite">
+            <div class="canvas-wrap" id="previewArea">
+              <div class="muted">Drop images here, upload, or click "Capture Preview" to snapshot the tool area.</div>
+            </div>
+          </div>
+
+          <div class="muted-block">Supported workflows: upload images, drag & drop, paste screenshots (Ctrl+V), or capture the visible preview. For cross-origin pages, capture is limited by browser security.</div>
+
+        </div>
+
+        <hr style="margin:16px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)">
+        <section>
+          <h3 style="margin:0 0 8px 0">Uploaded files</h3>
+          <div id="fileList" class="file-list"></div>
+        </section>
+
+      </section>
+
+      <!-- Sidebar with ad spaces & settings -->
+      <aside>
+        <div class="sidebar">
+          <div class="card">
+            <h3 style="margin:0 0 8px 0">Ad & Monetization</h3>
+            <p class="muted">Insert your AdSense Publisher ID and Ad Unit ID below to enable ad placeholders. Be sure your domain is approved by AdSense before enabling scripts.</p>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <input id="adClient" placeholder="ca-pub-XXXXXXXXXXXX" class="small" style="flex:1">
+            </div>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <input id="adUnit" placeholder="Ad Unit ID (ex: 1234567890)" class="small" style="flex:1">
+            </div>
+            <div style="margin-top:8px;display:flex;gap:8px">
+              <button id="applyAds" class="btn small">Apply AdSense IDs</button>
+            </div>
+          </div>
+
+          <div class="ad-slot card" id="adTop">
+            <!-- AdSense unit (replace data-ad-client & data-ad-slot dynamically) -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client=""
+                 data-ad-slot=""
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <p class="muted" style="margin-top:8px">Top Ad Space — replace with your AdSense unit.</p>
+          </div>
+
+          <div class="card ad-slot" id="adSticky">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client=""
+                 data-ad-slot=""
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <p class="muted" style="margin-top:8px">Sidebar Ad Space</p>
+          </div>
+
+          <div class="card">
+            <h4 style="margin:0 0 8px 0">SEO & Performance</h4>
+            <ul style="margin:0;padding-left:18px;color:rgba(234,234,234,0.85)">
+              <li>Fast load: libraries loaded deferred</li>
+              <li>Responsive layout and accessible ARIA labels</li>
+              <li>Structured data for rich results</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      Built with ❤️ — Screenshot to PDF Converter · Lightweight & mobile-friendly
+    </footer>
+  </div>
+
+  <!-- Core functionality -->
+  <script>
+    // Wait for libs
+    const waitFor = (fn, tag) => new Promise((res) => {
+      const timer = setInterval(()=>{
+        if(fn()){
+          clearInterval(timer);
+          res();
+        }
+      },50);
+    });
+
+    (async function init(){
+      await waitFor(()=>window.html2canvas && window.jspdf, 'libs');
+      const { jsPDF } = window.jspdf;
+
+      const fileInput = document.getElementById('fileInput');
+      const fileList = document.getElementById('fileList');
+      const previewArea = document.getElementById('previewArea');
+      const compression = document.getElementById('compression');
+      const pageSize = document.getElementById('pageSize');
+      const dpiInput = document.getElementById('dpi');
+      const convertBtn = document.getElementById('convertBtn');
+      const capturePreview = document.getElementById('capturePreview');
+      const clearBtn = document.getElementById('clearBtn');
+
+      // ad fields
+      const adClientInput = document.getElementById('adClient');
+      const adUnitInput = document.getElementById('adUnit');
+      const applyAdsBtn = document.getElementById('applyAds');
+
+      let images = []; // {name, dataURL, width, height}
+
+      function renderFileList(){
+        fileList.innerHTML = '';
+        images.forEach((img, idx)=>{
+          const row = document.createElement('div');
+          row.className = 'file-row';
+          row.innerHTML = `<div style="display:flex;gap:12px;align-items:center"><img src="${img.dataURL}" alt="thumb" style="width:48px;height:48px;object-fit:cover;border-radius:6px;border:1px solid rgba(0,0,0,0.2)"><div><div style=font-weight:700>${img.name}</div><div class=muted style="font-size:12px">${Math.round(img.width)}×${Math.round(img.height)}</div></div></div><div><button data-idx=${idx} class="small" style="background:transparent;border:1px solid rgba(255,255,255,0.06);">Remove</button></div>`;
+          fileList.appendChild(row);
+        });
+        // attach remove
+        fileList.querySelectorAll('button[data-idx]').forEach(btn=>btn.addEventListener('click', (e)=>{
+          const i = Number(e.currentTarget.dataset.idx);
+          images.splice(i,1);
+          renderPreview();
+          renderFileList();
+        }));
+      }
+
+      function renderPreview(){
+        previewArea.innerHTML = '';
+        if(images.length===0){
+          previewArea.innerHTML = '<div class="muted">Drop images here, upload, or click "Capture Preview" to snapshot the tool area.</div>';
+          return;
+        }
+        // create gallery
+        const wrap = document.createElement('div');
+        wrap.style.display='grid';
+        wrap.style.gridTemplateColumns='repeat(auto-fit,minmax(160px,1fr))';
+        wrap.style.gap='8px';
+        images.forEach(img=>{
+          const c = document.createElement('div');
+          c.style.borderRadius='8px';
+          c.style.overflow='hidden';
+          c.style.background='rgba(0,0,0,0.02)';
+          c.innerHTML = `<img src="${img.dataURL}" alt="uploaded" style="width:100%;height:160px;object-fit:contain;background:#0f0f1a">`;
+          wrap.appendChild(c);
+        });
+        previewArea.appendChild(wrap);
+      }
+
+      // handle file uploads
+      fileInput.addEventListener('change', async (e)=>{
+        const files = Array.from(e.target.files || []);
+        for(const f of files){
+          const dataURL = await toDataURL(f);
+          const dims = await getImageDimensions(dataURL);
+          images.push({name:f.name,dataURL,width:dims.w,height:dims.h});
+        }
+        renderPreview();renderFileList();
+      });
+
+      // drag & drop
+      const dropArea = previewArea;
+      ['dragenter','dragover'].forEach(ev=>dropArea.addEventListener(ev,(e)=>{e.preventDefault();dropArea.style.outline='2px dashed rgba(255,215,0,0.25)'}));
+      ['dragleave','drop'].forEach(ev=>dropArea.addEventListener(ev,(e)=>{e.preventDefault();dropArea.style.outline='none'}));
+      dropArea.addEventListener('drop', async (e)=>{
+        const dt = e.dataTransfer;
+        if(!dt) return;
+        const files = Array.from(dt.files || []).filter(f=>f.type && f.type.startsWith('image'));
+        for(const f of files){
+          const dataURL = await toDataURL(f);
+          const dims = await getImageDimensions(dataURL);
+          images.push({name:f.name,dataURL,width:dims.w,height:dims.h});
+        }
+        renderPreview();renderFileList();
+      });
+
+      // paste
+      window.addEventListener('paste', async (e)=>{
+        const items = Array.from(e.clipboardData.items || []);
+        for(const it of items){
+          if(it.type && it.type.indexOf('image')!==-1){
+            const f = it.getAsFile();
+            const dataURL = await toDataURL(f);
+            const dims = await getImageDimensions(dataURL);
+            images.push({name:'pasted_'+Date.now()+'.png',dataURL,width:dims.w,height:dims.h});
+          }
+        }
+        renderPreview();renderFileList();
+      });
+
+      async function toDataURL(file){
+        return await new Promise((res,rej)=>{
+          const reader = new FileReader();
+          reader.onload = ()=>res(reader.result);
+          reader.onerror = rej;
+          reader.readAsDataURL(file);
+        });
+      }
+
+      function getImageDimensions(dataURL){
+        return new Promise(res=>{
+          const img = new Image();
+          img.onload = ()=>res({w:img.naturalWidth,h:img.naturalHeight});
+          img.src = dataURL;
+        });
+      }
+
+      // Capture visible preview area (using html2canvas)
+      capturePreview.addEventListener('click', async ()=>{
+        capturePreview.disabled=true;
+        capturePreview.textContent='Capturing...';
+        try{
+          const canvas = await html2canvas(document.querySelector('.card'),{useCORS:true,scale:1});
+          const dataURL = canvas.toDataURL('image/png');
+          const dims = {w:canvas.width,h:canvas.height};
+          images.push({name:'preview_'+Date.now()+'.png',dataURL,width:dims.w,height:dims.h});
+          renderPreview();renderFileList();
+        }catch(err){
+          alert('Capture failed. Cross-origin content may prevent capturing external images.');
+          console.error(err);
+        }
+        capturePreview.disabled=false;
+        capturePreview.textContent='Capture Preview';
+      });
+
+      // Clear
+      clearBtn.addEventListener('click', ()=>{images=[];renderPreview();renderFileList();});
+
+      // Convert to PDF
+      convertBtn.addEventListener('click', async ()=>{
+        if(images.length===0){alert('Please upload or capture at least one image.');return}
+        convertBtn.disabled=true;convertBtn.textContent='Converting...';
+        const quality = parseFloat(compression.value);
+        const dpi = parseInt(dpiInput.value||150,10);
+        const size = pageSize.value;
+
+        // page dimensions in mm for jsPDF (A4: 210x297)
+        const sizes = {
+          'a4':[210,297],'letter':[216,279],'a4-landscape':[297,210]
+        };
+        const [pw,ph] = sizes[size] || sizes['a4'];
+
+        const pdf = new jsPDF({unit:'mm',format:[pw,ph]});
+
+        for(let i=0;i<images.length;i++){
+          const img = images[i];
+          // create compressed canvas
+          const imgEl = document.createElement('img');
+          imgEl.src = img.dataURL;
+          await new Promise(r=>imgEl.onload=r);
+
+          // scale image to fit into page while preserving aspect
+          const pxPerMm = dpi/25.4; // pixels per mm
+          const maxWpx = pw * pxPerMm;
+          const maxHpx = ph * pxPerMm;
+          let drawW = imgEl.naturalWidth;
+          let drawH = imgEl.naturalHeight;
+          const scale = Math.min(1, Math.min(maxWpx/drawW, maxHpx/drawH));
+          drawW = Math.round(drawW*scale);
+          drawH = Math.round(drawH*scale);
+
+          const canvas = document.createElement('canvas');
+          canvas.width = drawW;
+          canvas.height = drawH;
+          const ctx = canvas.getContext('2d');
+          // fill with navy background to match theme (in case of transparency)
+          ctx.fillStyle = '#1E1E2F';
+          ctx.fillRect(0,0,canvas.width,canvas.height);
+          ctx.drawImage(imgEl,0,0,drawW,drawH);
+
+          const mime = 'image/jpeg';
+          const compressed = canvas.toDataURL(mime, quality);
+
+          const imgProps = pdf.getImageProperties(compressed);
+          const pdfW = (imgProps.width / pxPerMm);
+          const pdfH = (imgProps.height / pxPerMm);
+
+          if(i>0) pdf.addPage([pw,ph]);
+          // center image on page
+          const x = (pw - pdfW)/2;
+          const y = (ph - pdfH)/2;
+          pdf.addImage(compressed,'JPEG',x,y,pdfW,pdfH);
+        }
+
+        // generate file name
+        const fileName = `screenshots_${new Date().toISOString().slice(0,19).replace(/[:T]/g,'_')}.pdf`;
+        pdf.save(fileName);
+        convertBtn.disabled=false;convertBtn.textContent='Convert to PDF';
+      });
+
+      // Apply AdSense IDs (danger: only enable on approved domains)
+      applyAdsBtn.addEventListener('click', ()=>{
+        const client = adClientInput.value.trim();
+        const slot = adUnitInput.value.trim();
+        if(!client || !slot){alert('Please enter both AdSense client ID and Ad Unit ID.');return}
+        // set ins attributes
+        document.querySelectorAll('ins.adsbygoogle').forEach(ins=>{
+          ins.setAttribute('data-ad-client', client);
+          ins.setAttribute('data-ad-slot', slot);
+        });
+        // try to push adsbygoogle if available
+        try{(adsbygoogle = window.adsbygoogle || []).push({});}catch(e){/* ignore */}
+        alert('AdSense IDs applied to ad placeholders. Ensure your domain is approved by AdSense before enabling live ads.');
+      });
+
+      // initial UI
+      renderPreview();renderFileList();
+
+    })();
+  </script>
+</body>
+</html>
