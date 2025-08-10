@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Random Text Generator — Lorem, Placeholder & Seeded</title>
+  <meta name="description" content="Generate random text: lorem ipsum, words, sentences or paragraphs. Options for length, seed, and downloadable outputs. Includes image compression for preview/audiogram backgrounds and AdSense placeholders.">
+  <link rel="canonical" href="/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Random Text Generator — Lorem, Placeholder & Seeded">
+  <meta property="og:description" content="Generate random text: lorem ipsum, words, sentences or paragraphs. Options for length, seed, and downloadable outputs.">
+  <meta property="og:type" content="website">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"Random Text Generator",
+    "url":"/",
+    "description":"Client-side random text generator with options for type, length, seeding, and downloadable PNG/TXT outputs.",
+    "applicationCategory":"Utilities"
+  }
+  </script>
+
+  <!-- AdSense placeholder -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
+  <script>
+    window.AD_CLIENT = 'YOUR_ADSENSE_CLIENT_ID';
+    window.AD_UNIT_ID = 'YOUR_ADSENSE_AD_UNIT_ID';
+  </script>
+
+  <style>
+    :root{--bg:#1E1E2F;--text:#EAEAEA;--header:#2B2D42;--accent:#FFD700;--accent-deep:#E6C200;--card:#3A3D5B;--shadow:rgba(255,215,0,0.2);--max-width:1100px}
+    *{box-sizing:border-box}html,body{height:100%}body{margin:0;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Arial;background:var(--bg);color:var(--text);padding:24px;display:flex;justify-content:center;-webkit-font-smoothing:antialiased}
+    .container{width:100%;max-width:var(--max-width)}header{background:var(--header);padding:18px;border-radius:12px;box-shadow:0 6px 24px var(--shadow);display:flex;gap:16px;align-items:center;margin-bottom:18px}
+    .mark{width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-deep));display:flex;align-items:center;justify-content:center;color:var(--header);font-weight:800;font-size:18px;box-shadow:0 6px 18px var(--shadow)}header h1{font-size:18px;margin:0}header p{margin:0;opacity:0.9;font-size:13px}
+
+    main{display:grid;grid-template-columns:1fr 360px;gap:18px}
+    .card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 8px 30px var(--shadow);transition:background .25s,color .25s}
+    .card:hover{background:var(--accent);color:var(--bg)}.card:hover .muted{color:var(--bg)}
+
+    label{font-size:13px}textarea,input,select,button{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px;border-radius:8px;color:var(--text);font-size:14px;width:100%}textarea{min-height:160px}
+    .controls{display:flex;flex-direction:column;gap:12px}.btn{display:inline-block;padding:10px 14px;border-radius:10px;background:var(--accent);color:var(--header);font-weight:700;border:none;cursor:pointer;box-shadow:0 8px 24px var(--shadow);transition:background .15s}
+    .btn:hover{background:var(--accent-deep)}.small{font-size:13px;padding:8px 10px;border-radius:8px}.preview{border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.03);margin-top:12px}.preview .canvas-wrap{min-height:120px;display:flex;align-items:center;justify-content:center;padding:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent)}
+
+    aside{position:relative}.sidebar{position:sticky;top:24px;display:flex;flex-direction:column;gap:12px}.ad-slot{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:10px;min-height:90px;display:flex;align-items:center;justify-content:center}
+
+    .muted{color:rgba(234,234,234,0.8);font-size:13px}.file-row{display:flex;align-items:center;justify-content:space-between;padding:8px;border-radius:8px;background:rgba(0,0,0,0.04)}
+    @media (max-width:980px){main{grid-template-columns:1fr}aside{order:2}}footer{margin-top:18px;text-align:center;color:rgba(234,234,234,0.6);font-size:13px}
+    /* hover effects per spec */.card:hover{background:#FFD700;color:#1E1E2F}.btn{background:var(--accent);color:#1E1E2F}.btn:hover{background:#E6C200}.card{box-shadow:0 8px 30px rgba(255,215,0,0.2)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="mark">RT</div>
+      <div>
+        <h1>Random Text Generator</h1>
+        <p class="muted">Generate Lorem, words, sentences, or paragraphs. Seeded option for reproducible outputs. Optional background image compression and download.</p>
+      </div>
+      <div style="margin-left:auto" class="muted">Theme: Dark Navy • Accent: Gold</div>
+    </header>
+
+    <main>
+      <section class="card" aria-labelledby="tool-heading">
+        <h2 id="tool-heading">Options</h2>
+        <div class="controls">
+          <div style="display:flex;gap:8px;align-items:center">
+            <label for="type">Type</label>
+            <select id="type" style="width:220px;margin-left:8px">
+              <option value="lorem">Lorem Ipsum (paragraphs)</option>
+              <option value="words">Random words</option>
+              <option value="sentences">Random sentences</option>
+              <option value="chars">Random characters</option>
+            </select>
+            <label style="margin-left:8px">Mode</label>
+            <select id="mode" style="width:160px;margin-left:8px">
+              <option value="random">Random</option>
+              <option value="seeded">Seeded (repeatable)</option>
+            </select>
+          </div>
+
+          <div style="display:flex;gap:8px">
+            <div style="flex:1">
+              <label for="count">Count</label>
+              <input id="count" type="number" min="1" max="200" value="5">
+            </div>
+            <div style="width:180px">
+              <label for="unit">Unit</label>
+              <select id="unit"><option value="paragraph">Paragraphs</option><option value="word">Words</option><option value="sentence">Sentences</option><option value="char">Characters</option></select>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:8px;align-items:center">
+            <div style="flex:1">
+              <label for="seed">Seed (optional)</label>
+              <input id="seed" placeholder="e.g. 12345">
+            </div>
+            <div style="width:180px">
+              <label for="language">Language</label>
+              <select id="language"><option value="en">English</option><option value="la">Latin (lorem)</option></select>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button id="generateBtn" class="btn small">Generate</button>
+            <button id="copyBtn" class="btn small">Copy</button>
+            <button id="downloadTxtBtn" class="btn small">Download .txt</button>
+            <button id="downloadPngBtn" class="btn small">Download PNG</button>
+            <button id="clearBtn" class="btn small" style="background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.06)">Clear</button>
+          </div>
+
+          <div style="margin-top:12px">
+            <label for="output">Output</label>
+            <textarea id="output" readonly placeholder="Generated text will appear here..."></textarea>
+          </div>
+
+          <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
+            <div style="flex:1">
+              <label for="fileInput">Upload background image (optional)</label>
+              <input id="fileInput" type="file" accept="image/*">
+            </div>
+            <div style="width:160px">
+              <label for="compression">Image compression</label>
+              <select id="compression"><option value="0.95">High</option><option value="0.8" selected>Balanced</option><option value="0.6">Small</option><option value="0.4">Very small</option></select>
+            </div>
+          </div>
+
+          <div class="preview" id="previewWrap"><div class="canvas-wrap" id="previewArea"><div class="muted">No image uploaded — preview will appear here</div></div></div>
+
+        </div>
+      </section>
+
+      <aside>
+        <div class="sidebar">
+          <div class="card">
+            <h3 style="margin:0 0 8px 0">Ad & Monetization</h3>
+            <p class="muted">Insert your AdSense Publisher ID and Ad Unit ID below to enable ad placeholders. Only enable on approved domains.</p>
+            <div style="display:flex;gap:8px;margin-top:8px"><input id="adClient" placeholder="ca-pub-XXXXXXXXXXXX" class="small" style="flex:1"></div>
+            <div style="display:flex;gap:8px;margin-top:8px"><input id="adUnit" placeholder="Ad Unit ID (ex: 1234567890)" class="small" style="flex:1"></div>
+            <div style="margin-top:8px;display:flex;gap:8px"><button id="applyAds" class="btn small">Apply AdSense IDs</button></div>
+          </div>
+
+          <div class="ad-slot card" id="adTop">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="" data-ad-slot="" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <p class="muted" style="margin-top:8px">Top Ad Space</p>
+          </div>
+
+          <div class="card ad-slot" id="adSticky">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="" data-ad-slot="" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <p class="muted" style="margin-top:8px">Sidebar Ad Space</p>
+          </div>
+
+          <div class="card">
+            <h4 style="margin:0 0 8px 0">SEO & Performance</h4>
+            <ul style="margin:0;padding-left:18px;color:rgba(234,234,234,0.85)">
+              <li>Client-only generation for privacy & speed</li>
+              <li>Structured metadata, Open Graph and canonical link</li>
+              <li>Deferred assets and minimal external dependencies</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer>Built with ❤️ — Random Text Generator · Lightweight & mobile-friendly</footer>
+  </div>
+
+  <script>
+    // PRNG (Mulberry32) for seeded randomness
+    function mulberry32(a){return function(){let t=a+=0x6D2B79F5; t=Math.imul(t^t>>>15, t|1); t^=t+Math.imul(t^t>>>7, t|61); return ((t^t>>>14)>>>0)/4294967296;}}
+
+    const lorem = `Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua`.split(' ');
+    const wordList = `quick brown fox jumps over lazy dog alpha beta gamma delta epsilon zeta eta theta iota kappa lambda mu nu xi omicron pi rho sigma tau upsilon phi chi psi omega`.split(' ');
+
+    const typeEl = document.getElementById('type');
+    const countEl = document.getElementById('count');
+    const unitEl = document.getElementById('unit');
+    const modeEl = document.getElementById('mode');
+    const seedEl = document.getElementById('seed');
+    const languageEl = document.getElementById('language');
+    const generateBtn = document.getElementById('generateBtn');
+    const outputEl = document.getElementById('output');
+    const copyBtn = document.getElementById('copyBtn');
+    const downloadTxtBtn = document.getElementById('downloadTxtBtn');
+    const downloadPngBtn = document.getElementById('downloadPngBtn');
+    const clearBtn = document.getElementById('clearBtn');
+
+    function pickRandom(rand, arr){ return arr[Math.floor(rand()*arr.length)]; }
+
+    function generateRandom(){
+      const type = typeEl.value;
+      const count = Math.max(1, Math.min(200, Number(countEl.value)||1));
+      const mode = modeEl.value;
+      const seed = seedEl.value.trim();
+      const lang = languageEl.value;
+
+      let rand = Math.random;
+      if(mode === 'seeded'){
+        const s = seed ? Number(seed) : Date.now() % 2147483647;
+        rand = mulberry32(s);
+      }
+
+      const pieces = [];
+      if(type === 'lorem'){
+        for(let p=0;p<count;p++){
+          const len = 40 + Math.floor(rand()*40);
+          const words = [];
+          for(let i=0;i<len;i++) words.push(pickRandom(rand, lorem));
+          pieces.push(words.join(' ') + '.');
+        }
+      } else if(type === 'words'){
+        const out=[]; for(let i=0;i<count;i++) out.push(pickRandom(rand, wordList)); pieces.push(out.join(' '));
+      } else if(type === 'sentences'){
+        for(let s=0;s<count;s++){ const wCount = 6 + Math.floor(rand()*12); const words=[]; for(let i=0;i<wCount;i++) words.push(pickRandom(rand, wordList)); let sText = words.join(' '); sText = sText.charAt(0).toUpperCase() + sText.slice(1) + '.'; pieces.push(sText); }
+      } else if(type === 'chars'){
+        const chars = 'abcdefghijklmnopqrstuvwxyz0123456789'; let s=''; for(let i=0;i<count;i++) s+=chars.charAt(Math.floor(rand()*chars.length)); pieces.push(s);
+      }
+
+      outputEl.value = pieces.join('\n\n');
+    }
+
+    generateBtn.addEventListener('click', generateRandom);
+    copyBtn.addEventListener('click', async ()=>{ try{ await navigator.clipboard.writeText(outputEl.value); copyBtn.textContent='Copied!'; setTimeout(()=>copyBtn.textContent='Copy',1200);}catch(e){alert('Copy failed: '+e.message)} });
+    downloadTxtBtn.addEventListener('click', ()=>{ const blob=new Blob([outputEl.value||''],{type:'text/plain;charset=utf-8'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='random_text.txt'; a.click(); });
+    clearBtn.addEventListener('click', ()=>{ outputEl.value=''; document.getElementById('previewArea').innerHTML='<div class="muted">No image uploaded — preview will appear here</div>'; });
+
+    // PNG generation with optional background
+    const fileInput = document.getElementById('fileInput');
+    const compression = document.getElementById('compression');
+    const previewArea = document.getElementById('previewArea');
+    let uploadedImage = null;
+
+    fileInput.addEventListener('change', async (e)=>{ const f=e.target.files[0]; if(!f) return; const dataURL = await toDataURL(f); const comp = await compressImage(dataURL, parseFloat(compression.value)); uploadedImage = comp; renderPreview(comp); });
+    function toDataURL(file){ return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=rej; r.readAsDataURL(file); }); }
+    function compressImage(dataURL, quality){ return new Promise(res=>{ const img=new Image(); img.onload=()=>{ const max=1200; const scale=Math.min(1, max/Math.max(img.naturalWidth,img.naturalHeight)); const w=Math.round(img.naturalWidth*scale); const h=Math.round(img.naturalHeight*scale); const canvas=document.createElement('canvas'); canvas.width=w; canvas.height=h; const ctx=canvas.getContext('2d'); ctx.fillStyle='#1E1E2F'; ctx.fillRect(0,0,w,h); ctx.drawImage(img,0,0,w,h); res(canvas.toDataURL('image/jpeg', quality)); }; img.src=dataURL; }); }
+    function renderPreview(dataURL){ previewArea.innerHTML=''; if(!dataURL){ previewArea.innerHTML='<div class="muted">No image uploaded — preview will appear here</div>'; return } const img=document.createElement('img'); img.src=dataURL; img.style.maxWidth='100%'; img.style.height='auto'; img.style.borderRadius='8px'; previewArea.appendChild(img); }
+
+    downloadPngBtn.addEventListener('click', async ()=>{ const text = outputEl.value || ''; const canvas = document.createElement('canvas'); const w=1200; const h=630; canvas.width=w; canvas.height=h; const ctx = canvas.getContext('2d'); if(uploadedImage){ const bg = new Image(); bg.crossOrigin='anonymous'; bg.src = uploadedImage; await new Promise(r=>bg.onload=r); const scale = Math.max(w/bg.naturalWidth, h/bg.naturalHeight); const nw = bg.naturalWidth*scale; const nh = bg.naturalHeight*scale; ctx.drawImage(bg, (w-nw)/2, (h-nh)/2, nw, nh); } else { ctx.fillStyle='#1E1E2F'; ctx.fillRect(0,0,w,h); } ctx.fillStyle='rgba(0,0,0,0.25)'; ctx.fillRect(0,0,w,h); ctx.fillStyle='#FFD700'; ctx.font='bold 36px Inter, Arial'; ctx.textAlign='left'; ctx.textBaseline='top'; const lines = wrapText(ctx, text, w-120); lines.forEach((line,i)=>{ ctx.fillText(line,60,60 + i*40); }); const a=document.createElement('a'); a.href = canvas.toDataURL('image/png'); a.download = 'random_text.png'; a.click(); });
+
+    function wrapText(ctx, text, maxWidth){ const words = text.split(/\s+/); const lines=[]; let cur=''; for(const w of words){ const test = cur ? cur+' '+w : w; const width = ctx.measureText(test).width; if(width > maxWidth && cur){ lines.push(cur); cur = w; } else { cur = test; } } if(cur) lines.push(cur); return lines.slice(0,40); }
+
+    // Apply AdSense
+    document.getElementById('applyAds').addEventListener('click', ()=>{ const client = document.getElementById('adClient').value.trim(); const slot = document.getElementById('adUnit').value.trim(); if(!client || !slot){alert('Please enter both AdSense client ID and Ad Unit ID.');return} document.querySelectorAll('ins.adsbygoogle').forEach(ins=>{ins.setAttribute('data-ad-client', client);ins.setAttribute('data-ad-slot', slot);}); try{(adsbygoogle = window.adsbygoogle || []).push({});}catch(e){} alert('AdSense IDs applied. Ensure your domain is approved by AdSense.'); });
+
+    // keyboard shortcut: Ctrl+Enter generate
+    document.addEventListener('keydown',(e)=>{ if((e.ctrlKey||e.metaKey) && e.key==='Enter'){ generateBtn.click(); } });
+
+    // init
+    renderPreview(null);
+  </script>
+</body>
+</html>
