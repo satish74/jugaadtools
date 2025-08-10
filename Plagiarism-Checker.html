@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Check plagiarism from screenshots using OCR and AI-powered detection. Upload an image, extract text, and detect plagiarism with customizable compression levels. Free and responsive tool.">
+    <meta name="keywords" content="plagiarism checker, OCR plagiarism detection, image to text plagiarism, plagiarism tool, free plagiarism checker, screenshot plagiarism">
+    <meta name="author" content="Plagiarism Checker">
+    <meta name="robots" content="index, follow">
+    <title>Plagiarism Checker - Free OCR Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #1E1E2F;
+            color: #EAEAEA;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #2B2D42;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(255, 215, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #FFD700;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .tool-card {
+            background-color: #3A3D5B;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tool-card:hover {
+            background-color: #FFD700;
+            color: #1E1E2F;
+        }
+
+        .tool-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        input[type="file"], input[type="text"], select {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            background-color: #EAEAEA;
+            color: #1E1E2F;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #FFD700;
+            color: #1E1E2F;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #E6C200;
+        }
+
+        #previewContainer {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        #previewImage {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 5px;
+        }
+
+        #resultContainer {
+            margin-top: 2rem;
+            display: none;
+        }
+
+        #extractedText {
+            width: 100%;
+            height: 200px;
+            padding: 1rem;
+            background-color: #EAEAEA;
+            color: #1E1E2F;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        #plagiarismResults {
+            margin-top: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 0.8rem;
+            border: 1px solid #EAEAEA;
+            text-align: left;
+        }
+
+        th {
+            background-color: #2B2D42;
+        }
+
+        .ad-container {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .ad-container ins {
+            display: inline-block;
+        }
+
+        footer {
+            background-color: #2B2D42;
+            padding: 1rem;
+            text-align: center;
+            color: #EAEAEA;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .tool-card {
+                padding: 1.5rem;
+            }
+
+            .tool-card h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .tool-card {
+                padding: 1rem;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR_ADSENSE_CLIENT_ID"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Plagiarism Checker</h1>
+    </header>
+
+    <main>
+        <!-- Top Ad -->
+        <div class="ad-container">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="YOUR_ADSENSE_CLIENT_ID"
+                 data-ad-slot="YOUR_ADSENSE_AD_SLOT"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <section class="tool-card">
+            <h2>Check Plagiarism from Screenshot</h2>
+            <div class="input-group">
+                <label for="imageInput">Upload Screenshot</label>
+                <input type="file" id="imageInput" accept="image/*" required>
+            </div>
+            <div class="input-group">
+                <label for="compressionLevel">Compression Level (Affects OCR Accuracy)</label>
+                <select id="compressionLevel">
+                    <option value="0.2">Low (Faster, Lower Accuracy)</option>
+                    <option value="0.5" selected>Medium (Balanced)</option>
+                    <option value="0.8">High (Better Accuracy)</option>
+                    <option value="1.0">Highest (Best Accuracy, Slower)</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="apiKey">Eden AI API Key (Sign up at edenai.co for free credits)</label>
+                <input type="text" id="apiKey" placeholder="Enter your Eden AI API Key" required>
+            </div>
+            <button onclick="checkPlagiarism()">Check Plagiarism</button>
+            <div id="previewContainer">
+                <img id="previewImage" alt="Screenshot Preview" style="display: none;">
+            </div>
+            <div id="resultContainer">
+                <h3>Extracted Text:</h3>
+                <textarea id="extractedText" readonly></textarea>
+                <div id="plagiarismResults">
+                    <h3>Plagiarism Score: <span id="plagiarismScore"></span>%</h3>
+                    <h4>Sources:</h4>
+                    <table id="sourcesTable">
+                        <thead>
+                            <tr>
+                                <th>Source URL</th>
+                                <th>Similarity (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bottom Ad -->
+        <div class="ad-container">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="YOUR_ADSENSE_CLIENT_ID"
+                 data-ad-slot="YOUR_ADSENSE_AD_SLOT"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Plagiarism Checker. All rights reserved.</p>
+    </footer>
+
+    <script>
+        async function checkPlagiarism() {
+            const imageInput = document.getElementById('imageInput');
+            const compressionLevel = parseFloat(document.getElementById('compressionLevel').value);
+            const apiKey = document.getElementById('apiKey').value;
+            const previewImage = document.getElementById('previewImage');
+            const extractedTextElem = document.getElementById('extractedText');
+            const plagiarismScoreElem = document.getElementById('plagiarismScore');
+            const sourcesTableBody = document.querySelector('#sourcesTable tbody');
+            const resultContainer = document.getElementById('resultContainer');
+
+            if (!imageInput.files[0]) {
+                alert('Please upload an image.');
+                return;
+            }
+            if (!apiKey) {
+                alert('Please enter your Eden AI API Key.');
+                return;
+            }
+
+            const file = imageInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = async function(event) {
+                previewImage.src = event.target.result;
+                previewImage.style.display = 'block';
+
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = async function() {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+                    const compressedData = canvas.toDataURL('image/jpeg', compressionLevel);
+
+                    const worker = await Tesseract.createWorker('eng');
+                    const { data: { text } } = await worker.recognize(compressedData);
+                    await worker.terminate();
+
+                    const extractedText = text.trim();
+                    extractedTextElem.value = extractedText;
+
+                    // Check plagiarism using Eden AI
+                    try {
+                        const response = await fetch('https://api.edenai.run/v2/text/plagia_detection', {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': `Bearer ${apiKey}`,
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                providers: 'originalityai',
+                                text: extractedText,
+                                title: 'Screenshot Text'
+                            })
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('API request failed');
+                        }
+
+                        const data = await response.json();
+                        const result = data.originalityai || {}; // Assuming provider response
+                        const plagiarismScore = (result.plagiarism_score || 0) * 100; // Convert to percentage if needed
+                        plagiarismScoreElem.textContent = plagiarismScore.toFixed(2);
+
+                        // Clear previous sources
+                        sourcesTableBody.innerHTML = '';
+
+                        // Populate sources table
+                        if (result.sources && Array.isArray(result.sources)) {
+                            result.sources.forEach(source => {
+                                const row = document.createElement('tr');
+                                const urlCell = document.createElement('td');
+                                const simCell = document.createElement('td');
+
+                                urlCell.innerHTML = `<a href="${source.url}" target="_blank" style="color: #FFD700;">${source.url}</a>`;
+                                simCell.textContent = `${(source.similarity * 100).toFixed(2)}%`;
+
+                                row.appendChild(urlCell);
+                                row.appendChild(simCell);
+                                sourcesTableBody.appendChild(row);
+                            });
+                        }
+
+                        resultContainer.style.display = 'block';
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('Failed to check plagiarism. Check console for details.');
+                    }
+                };
+            };
+
+            reader.readAsDataURL(file);
+        }
+    </script>
+</body>
+</html>
