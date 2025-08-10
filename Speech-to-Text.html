@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Speech to Text — Live Transcription</title>
+  <meta name="description" content="Live speech-to-text transcription in your browser. Start/stop microphone recording, choose language, save transcripts, and optimize uploaded images for thumbnails/audiograms.">
+  <link rel="canonical" href="/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Speech to Text — Live Transcription">
+  <meta property="og:description" content="Live speech-to-text transcription in your browser. Start/stop microphone recording, choose language, save transcripts, and optimize uploaded images for thumbnails/audiograms.">
+  <meta property="og:type" content="website">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"Speech to Text Tool",
+    "url":"/",
+    "description":"Browser-based speech-to-text live transcription with language selection and downloadable transcripts.",
+    "applicationCategory":"Productivity"
+  }
+  </script>
+
+  <!-- AdSense placeholder: Replace YOUR_ADSENSE_CLIENT_ID with your publisher ID (ca-pub-XXXXXXXXXXXX) -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
+  <script>
+    window.AD_CLIENT = 'YOUR_ADSENSE_CLIENT_ID';
+    window.AD_UNIT_ID = 'YOUR_ADSENSE_AD_UNIT_ID';
+  </script>
+
+  <style>
+    :root{
+      --bg:#1E1E2F; --text:#EAEAEA; --header:#2B2D42; --accent:#FFD700; --accent-deep:#E6C200; --card:#3A3D5B; --shadow:rgba(255,215,0,0.2);
+      --max-width:1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter, system-ui, -apple-system,'Segoe UI',Roboto,Arial;background:var(--bg);color:var(--text);padding:24px;display:flex;justify-content:center;-webkit-font-smoothing:antialiased}
+    .container{width:100%;max-width:var(--max-width)}
+    header{background:var(--header);padding:18px;border-radius:12px;box-shadow:0 6px 24px var(--shadow);display:flex;gap:16px;align-items:center;margin-bottom:18px}
+    .logo{display:flex;align-items:center;gap:12px}
+    .mark{width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-deep));display:flex;align-items:center;justify-content:center;color:var(--header);font-weight:800;font-size:18px;box-shadow:0 6px 18px var(--shadow)}
+    header h1{font-size:18px;margin:0}
+    header p{margin:0;opacity:0.9;font-size:13px}
+
+    main{display:grid;grid-template-columns:1fr 380px;gap:18px}
+    .card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 8px 30px var(--shadow);transition:background .25s,color .25s,transform .08s}
+    .card:hover{background:var(--accent);color:var(--bg)}
+    .card:hover .muted{color:var(--bg)}
+
+    label{font-size:13px}
+    select,input,textarea{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px;border-radius:8px;color:var(--text);font-size:14px}
+    textarea{min-height:240px;width:100%;resize:vertical;padding:12px;border-radius:8px}
+
+    .controls{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:var(--accent);color:var(--header);font-weight:700;border:none;cursor:pointer;box-shadow:0 8px 24px var(--shadow);transition:background .15s,transform .08s}
+    .btn:hover{background:var(--accent-deep)}
+    .small{font-size:13px;padding:8px 10px;border-radius:8px}
+
+    aside{position:relative}
+    .sidebar{position:sticky;top:24px;display:flex;flex-direction:column;gap:12px}
+    .ad-slot{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:10px;min-height:90px;display:flex;align-items:center;justify-content:center}
+    .ad-slot p{margin:0;font-size:13px;color:rgba(234,234,234,0.7)}
+
+    .status{display:flex;gap:12px;align-items:center}
+    .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.15)}
+    .dot.recording{background:#ff6b6b;box-shadow:0 6px 18px rgba(255,107,107,0.2)}
+
+    .preview{border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.03);margin-top:12px}
+    .preview .canvas-wrap{min-height:140px;display:flex;align-items:center;justify-content:center;padding:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent)}
+
+    .file-list{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+    .file-row{display:flex;align-items:center;justify-content:space-between;padding:8px;border-radius:8px;background:rgba(0,0,0,0.04)}
+
+    @media (max-width:980px){main{grid-template-columns:1fr}aside{order:2}}
+    footer{margin-top:18px;text-align:center;color:rgba(234,234,234,0.6);font-size:13px}
+
+    /* Hover effects per spec */
+    .card:hover{background:#FFD700;color:#1E1E2F}
+    .btn{background:var(--accent);color:#1E1E2F}
+    .btn:hover{background:#E6C200}
+    .card{box-shadow:0 8px 30px rgba(255,215,0,0.2)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <div class="mark">STT</div>
+        <div>
+          <h1>Speech → Text</h1>
+          <p class="muted">Live transcription powered by your browser. Start speaking and save transcripts instantly.</p>
+        </div>
+      </div>
+      <div style="margin-left:auto" class="muted">Theme: Dark Navy • Accent: Gold</div>
+    </header>
+
+    <main>
+      <section class="card" aria-labelledby="tool-heading">
+        <h2 id="tool-heading">Live Speech-to-Text</h2>
+        <p class="muted">Use your microphone for real-time transcription. Optionally upload an image (compressed) to use as a thumbnail or audiogram overlay for your transcript export.</p>
+
+        <div class="controls">
+          <div style="display:flex;gap:8px;align-items:center">
+            <label for="lang">Language</label>
+            <select id="lang">
+              <option value="en-US">English (US)</option>
+              <option value="en-GB">English (UK)</option>
+              <option value="hi-IN">Hindi (India)</option>
+              <option value="es-ES">Spanish</option>
+              <option value="fr-FR">French</option>
+              <option value="auto">(Auto detect)</option>
+            </select>
+            <label for="interim">Interim results</label>
+            <input id="interim" type="checkbox" checked style="width:18px;height:18px">
+          </div>
+
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+            <button id="startBtn" class="btn small">Start</button>
+            <button id="stopBtn" class="btn small">Stop</button>
+            <button id="clearBtn" class="btn small" style="background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.06)">Clear</button>
+            <button id="downloadBtn" class="btn small">Download Transcript</button>
+          </div>
+
+          <div style="margin-top:12px;display:flex;align-items:center;justify-content:space-between">
+            <div class="status"><div id="recDot" class="dot"></div><div class="muted" id="statusText">Idle</div></div>
+            <div class="muted">Words: <strong id="wordCount">0</strong> • Characters: <strong id="charCount">0</strong></div>
+          </div>
+
+          <div style="margin-top:12px">
+            <label for="transcript">Transcript</label>
+            <textarea id="transcript" placeholder="Live transcription will appear here..."></textarea>
+          </div>
+
+          <div style="margin-top:12px">
+            <label for="fileInput">Upload image (optional) — compression applied for thumbnail/audiogram</label>
+            <input id="fileInput" type="file" accept="image/*">
+            <label for="compression">Image compression</label>
+            <select id="compression">
+              <option value="0.95">High (0.95)</option>
+              <option value="0.8" selected>Balanced (0.8)</option>
+              <option value="0.6">Small (0.6)</option>
+              <option value="0.4">Very small (0.4)</option>
+            </select>
+            <div class="preview" style="margin-top:12px"><div class="canvas-wrap" id="previewArea"><div class="muted">No image uploaded</div></div></div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <aside>
+        <div class="sidebar">
+          <div class="card">
+            <h3 style="margin:0 0 8px 0">Ad & Monetization</h3>
+            <p class="muted">Insert your AdSense Publisher ID and Ad Unit ID below to enable ad placeholders. Only enable ads on approved domains.</p>
+            <div style="display:flex;gap:8px;margin-top:8px"><input id="adClient" placeholder="ca-pub-XXXXXXXXXXXX" class="small" style="flex:1"></div>
+            <div style="display:flex;gap:8px;margin-top:8px"><input id="adUnit" placeholder="Ad Unit ID (ex: 1234567890)" class="small" style="flex:1"></div>
+            <div style="margin-top:8px;display:flex;gap:8px"><button id="applyAds" class="btn small">Apply AdSense IDs</button></div>
+          </div>
+
+          <div class="ad-slot card" id="adTop">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="" data-ad-slot="" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <p class="muted" style="margin-top:8px">Top Ad Space</p>
+          </div>
+
+          <div class="card ad-slot" id="adSticky">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="" data-ad-slot="" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <p class="muted" style="margin-top:8px">Sidebar Ad Space</p>
+          </div>
+
+          <div class="card">
+            <h4 style="margin:0 0 8px 0">SEO & Performance</h4>
+            <ul style="margin:0;padding-left:18px;color:rgba(234,234,234,0.85)">
+              <li>Client-side recognition using Web Speech API</li>
+              <li>Deferred assets and lightweight UI for fast loads</li>
+              <li>Structured data & accessible controls for discoverability</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer>Built with ❤️ — Speech to Text · Lightweight & mobile-friendly</footer>
+  </div>
+
+  <script>
+    // Feature detection
+    const startBtn = document.getElementById('startBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const transcriptEl = document.getElementById('transcript');
+    const langSel = document.getElementById('lang');
+    const interimCheckbox = document.getElementById('interim');
+    const recDot = document.getElementById('recDot');
+    const statusText = document.getElementById('statusText');
+    const wordCountEl = document.getElementById('wordCount');
+    const charCountEl = document.getElementById('charCount');
+    const fileInput = document.getElementById('fileInput');
+    const compression = document.getElementById('compression');
+    const previewArea = document.getElementById('previewArea');
+    const applyAdsBtn = document.getElementById('applyAds');
+
+    let recognition = null;
+    let recognizing = false;
+
+    function updateStats(){
+      const text = transcriptEl.value || '';
+      const words = text.trim().length ? text.trim().split(/\s+/).filter(Boolean) : [];
+      wordCountEl.textContent = words.length;
+      charCountEl.textContent = text.length;
+    }
+
+    function setStatus(s){ statusText.textContent = s; }
+
+    // Setup SpeechRecognition
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+    if(SpeechRecognition){
+      recognition = new SpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.onstart = ()=>{recognizing=true;recDot.classList.add('recording');setStatus('Listening...');}
+      recognition.onend = ()=>{recognizing=false;recDot.classList.remove('recording');setStatus('Idle');}
+      recognition.onerror = (e)=>{console.error('Recognition error',e);setStatus('Error: '+(e.error||e.message));}
+      recognition.onresult = (evt)=>{
+        let interim = '';
+        let final = '';
+        for(let i=evt.resultIndex;i<evt.results.length;i++){
+          const r = evt.results[i];
+          if(r.isFinal) final += r[0].transcript + '\n'; else interim += r[0].transcript;
+        }
+        if(interimCheckbox.checked) transcriptEl.value = (transcriptEl.dataset.finalText ? transcriptEl.dataset.finalText + '\n' : '') + interim; else transcriptEl.value = (transcriptEl.dataset.finalText ? transcriptEl.dataset.finalText + '\n' : '') + final;
+        // store final segments
+        if(final.trim()){ transcriptEl.dataset.finalText = (transcriptEl.dataset.finalText || '') + final; transcriptEl.value = transcriptEl.dataset.finalText; }
+        updateStats();
+      };
+    } else {
+      setStatus('Speech recognition not supported in this browser.');
+      startBtn.disabled = true; stopBtn.disabled=true;
+    }
+
+    startBtn.addEventListener('click', ()=>{
+      if(!recognition) return alert('Speech recognition not available. Try Chrome or Edge.');
+      recognition.lang = langSel.value === 'auto' ? 'en-US' : langSel.value;
+      recognition.interimResults = interimCheckbox.checked;
+      transcriptEl.dataset.finalText = transcriptEl.value || '';
+      recognition.start();
+    });
+
+    stopBtn.addEventListener('click', ()=>{ if(recognition){ recognition.stop(); } });
+
+    clearBtn.addEventListener('click', ()=>{ transcriptEl.value=''; transcriptEl.dataset.finalText=''; updateStats(); });
+
+    downloadBtn.addEventListener('click', ()=>{
+      const text = transcriptEl.value || '';
+      if(!text.trim()){alert('Transcript is empty.');return}
+      const blob = new Blob([text], {type:'text/plain;charset=utf-8'});
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `transcript_${new Date().toISOString().slice(0,19).replace(/[:T]/g,'_')}.txt`; a.click();
+    });
+
+    // Image upload + compression for thumbnail/audiogram
+    let uploadedImage = null;
+    fileInput.addEventListener('change', async (e)=>{
+      const f = e.target.files[0]; if(!f) return;
+      const dataURL = await toDataURL(f);
+      const compressed = await compressImage(dataURL, parseFloat(compression.value));
+      uploadedImage = compressed;
+      renderPreview(compressed);
+    });
+
+    async function toDataURL(file){return await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file);});}
+    function compressImage(dataURL, quality){return new Promise((res)=>{const img=new Image();img.onload=()=>{const max=1200; const scale=Math.min(1, max/Math.max(img.naturalWidth,img.naturalHeight)); const w=Math.round(img.naturalWidth*scale); const h=Math.round(img.naturalHeight*scale); const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;const ctx=canvas.getContext('2d');ctx.fillStyle='#1E1E2F';ctx.fillRect(0,0,w,h);ctx.drawImage(img,0,0,w,h);const out=canvas.toDataURL('image/jpeg', quality);res(out);} ; img.src=dataURL;});}
+    function renderPreview(dataURL){ previewArea.innerHTML=''; if(!dataURL){ previewArea.innerHTML='<div class="muted">No image uploaded</div>'; return } const img=document.createElement('img'); img.src=dataURL; img.style.maxWidth='100%'; img.style.height='auto'; img.style.borderRadius='8px'; previewArea.appendChild(img); }
+
+    // Apply AdSense IDs
+    applyAdsBtn.addEventListener('click', ()=>{
+      const client = document.getElementById('adClient').value.trim();
+      const slot = document.getElementById('adUnit').value.trim();
+      if(!client || !slot){alert('Enter both AdSense client and ad unit ID.');return}
+      document.querySelectorAll('ins.adsbygoogle').forEach(ins=>{ins.setAttribute('data-ad-client', client);ins.setAttribute('data-ad-slot', slot);});
+      try{(adsbygoogle = window.adsbygoogle || []).push({});}catch(e){}
+      alert('AdSense IDs applied. Ensure your domain is approved by AdSense.');
+    });
+
+    // update stats when user edits transcript
+    transcriptEl.addEventListener('input', updateStats);
+
+    // initial
+    renderPreview(null); updateStats();
+  </script>
+</body>
+</html>
