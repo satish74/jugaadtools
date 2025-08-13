@@ -3,692 +3,299 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JugaadTools - Free Online Tools for Everyone</title>
+    <title>Multi Tool Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --dark-navy: #1E1E2F;
-            --deep-blue: #2B2D42;
-            --gold: #FFD700;
-            --deep-gold: #E6C200;
-            --tool-card: #3A3D5B;
-            --text-light: #EAEAEA;
-            --shadow-gold: rgba(255, 215, 0, 0.2);
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
+        :root {
+            --dark-navy: #1E1E2F;
+            --deep-blue: #2B2D42;
+            --gold: #FFD700;
+            --gold-hover: #E6C200;
+            --tool-card: #3A3D5B;
+            --text-light: #EAEAEA;
+            --shadow: rgba(255, 215, 0, 0.2);
+        }
+
         body {
             background-color: var(--dark-navy);
             color: var(--text-light);
             line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 40px;
         }
-        
-        /* Header Styles */
+
         header {
             background-color: var(--deep-blue);
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-        
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .logo h1 {
-            font-size: 1.8rem;
-            background: linear-gradient(45deg, var(--gold), #ff9d00);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-weight: 800;
-        }
-        
-        .logo i {
-            color: var(--gold);
-            font-size: 2rem;
-        }
-        
-        .search-container {
-            flex-grow: 1;
-            max-width: 600px;
-            margin: 0 2rem;
-            position: relative;
-        }
-        
-        .search-container input {
-            width: 100%;
-            padding: 0.8rem 1.2rem;
-            padding-left: 3rem;
-            border-radius: 30px;
-            border: 2px solid var(--gold);
-            background-color: rgba(255, 255, 255, 0.1);
-            color: var(--text-light);
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .search-container input:focus {
-            outline: none;
-            background-color: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 10px var(--shadow-gold);
-        }
-        
-        .search-container i {
-            position: absolute;
-            left: 1.2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--gold);
-        }
-        
-        .nav-buttons {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .nav-btn {
-            background: transparent;
-            border: 2px solid var(--gold);
-            color: var(--gold);
-            padding: 0.6rem 1.2rem;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        
-        .nav-btn:hover {
-            background-color: var(--gold);
-            color: var(--deep-blue);
-        }
-        
-        /* Hero Section */
-        .hero {
-            padding: 4rem 2rem;
-            background: linear-gradient(135deg, #2B2D42 0%, #1E1E2F 100%);
+            padding: 25px 20px;
             text-align: center;
-            border-bottom: 2px solid var(--gold);
+            box-shadow: 0 4px 12px var(--shadow);
+            position: relative;
+            z-index: 10;
         }
-        
-        .hero h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--text-light);
-        }
-        
-        .hero p {
-            max-width: 800px;
-            margin: 0 auto 2rem;
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-        
-        .highlight {
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 5px;
             color: var(--gold);
-            font-weight: 700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+            letter-spacing: 1px;
         }
-        
-        /* Categories */
-        .categories {
-            padding: 2rem;
-            max-width: 1200px;
+
+        .tagline {
+            font-size: 1.1rem;
+            opacity: 0.85;
+            max-width: 600px;
             margin: 0 auto;
         }
-        
-        .section-title {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--gold);
-            display: inline-block;
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
         }
-        
-        .category-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 2rem;
-        }
-        
-        .category-btn {
-            background-color: var(--tool-card);
-            color: var(--text-light);
-            border: none;
-            padding: 0.7rem 1.5rem;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        
-        .category-btn.active, .category-btn:hover {
-            background-color: var(--gold);
-            color: var(--dark-navy);
-        }
-        
-        /* Tools Grid */
+
         .tools-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 20px;
         }
-        
+
         .tool-card {
             background-color: var(--tool-card);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 25px;
             transition: all 0.3s ease;
+            box-shadow: 0 6px 15px var(--shadow);
             display: flex;
             flex-direction: column;
             height: 100%;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 215, 0, 0.1);
         }
-        
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+            opacity: 0.7;
+        }
+
         .tool-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 30px var(--shadow-gold);
+            background-color: var(--gold);
+            color: var(--dark-navy);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px var(--shadow);
         }
-        
-        .tool-icon {
-            height: 120px;
-            background: linear-gradient(135deg, #3A3D5B 0%, #2B2D42 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
+
+        .tool-card:hover .btn {
+            background-color: var(--dark-navy);
             color: var(--gold);
         }
-        
-        .tool-content {
-            padding: 1.5rem;
+
+        .tool-card:hover .btn:hover {
+            background-color: var(--deep-blue);
+        }
+
+        .tool-icon {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .tool-card:hover .tool-icon {
+            color: var(--dark-navy);
+        }
+
+        .tool-card h2 {
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .tool-card p {
+            margin-bottom: 20px;
+            opacity: 0.9;
             flex-grow: 1;
-            display: flex;
-            flex-direction: column;
         }
-        
-        .tool-content h3 {
-            font-size: 1.4rem;
-            margin-bottom: 0.8rem;
-            color: var(--text-light);
-        }
-        
-        .tool-content p {
-            margin-bottom: 1.5rem;
-            flex-grow: 1;
-            opacity: 0.8;
-        }
-        
-        .tool-btn {
+
+        .btn {
             background-color: var(--gold);
             color: var(--dark-navy);
             border: none;
-            padding: 0.8rem;
-            border-radius: 8px;
-            cursor: pointer;
+            padding: 12px 20px;
+            border-radius: 5px;
             font-weight: 700;
-            text-align: center;
+            cursor: pointer;
             transition: all 0.3s ease;
-            display: block;
+            font-size: 1rem;
             width: 100%;
+            text-align: center;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-        
-        .tool-btn:hover {
-            background-color: var(--deep-gold);
+
+        .btn:hover {
+            background-color: var(--gold-hover);
             transform: scale(1.02);
         }
-        
-        /* Ad Section */
-        .ad-section {
-            background: linear-gradient(135deg, #3A3D5B 0%, #2B2D42 100%);
-            border: 2px solid var(--gold);
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            margin: 3rem auto;
-            max-width: 1000px;
-        }
-        
-        .ad-section h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--gold);
-        }
-        
-        .ad-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-        
-        .ad-text {
-            flex: 1;
-            min-width: 300px;
-            text-align: left;
-        }
-        
-        .ad-placeholder {
-            width: 300px;
-            height: 250px;
-            background: rgba(255, 215, 0, 0.1);
-            border: 2px dashed var(--gold);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gold);
-            font-weight: 700;
-        }
-        
-        /* Footer */
+
         footer {
-            background-color: var(--deep-blue);
-            padding: 3rem 2rem 2rem;
-            margin-top: 3rem;
-        }
-        
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-        
-        .footer-col h4 {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            color: var(--gold);
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-        
-        .footer-col h4::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 50px;
-            height: 2px;
-            background-color: var(--gold);
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-        
-        .footer-links a {
-            color: var(--text-light);
-            opacity: 0.8;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            opacity: 1;
-            color: var(--gold);
-            padding-left: 5px;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--tool-card);
-            color: var(--text-light);
-            transition: all 0.3s ease;
-        }
-        
-        .social-links a:hover {
-            background-color: var(--gold);
-            color: var(--dark-navy);
-            transform: translateY(-3px);
-        }
-        
-        .copyright {
             text-align: center;
-            padding-top: 2rem;
-            margin-top: 2rem;
-            border-top: 1px solid rgba(255, 215, 0, 0.2);
+            margin-top: 40px;
+            padding: 20px;
+            font-size: 0.9rem;
             opacity: 0.7;
         }
-        
+
         /* Responsive Design */
-        @media (max-width: 900px) {
-            .header-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .search-container {
-                margin: 1rem 0;
-                width: 100%;
-            }
-            
-            .hero h2 {
-                font-size: 2rem;
-            }
-            
-            .tools-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-        }
-        
-        @media (max-width: 600px) {
-            .hero {
-                padding: 3rem 1rem;
-            }
-            
-            .hero h2 {
-                font-size: 1.8rem;
-            }
-            
+        @media (max-width: 768px) {
             .tools-grid {
                 grid-template-columns: 1fr;
             }
             
-            .ad-content {
-                flex-direction: column;
+            h1 {
+                font-size: 2.2rem;
             }
             
-            .ad-text {
-                text-align: center;
+            .tool-card {
+                padding: 20px;
             }
         }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tagline {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tool-card {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .tool-card:nth-child(1) { animation-delay: 0.1s; }
+        .tool-card:nth-child(2) { animation-delay: 0.2s; }
+        .tool-card:nth-child(3) { animation-delay: 0.3s; }
+        .tool-card:nth-child(4) { animation-delay: 0.4s; }
+        .tool-card:nth-child(5) { animation-delay: 0.5s; }
+        .tool-card:nth-child(6) { animation-delay: 0.6s; }
+        .tool-card:nth-child(7) { animation-delay: 0.7s; }
+        .tool-card:nth-child(8) { animation-delay: 0.8s; }
     </style>
 </head>
 <body>
-    <!-- Header Section -->
     <header>
-        <div class="header-container">
-            <div class="logo">
-                <i class="fas fa-tools"></i>
-                <h1>JugaadTools</h1>
-            </div>
-            
-            <div class="search-container">
-                <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Search for tools...">
-            </div>
-            
-            <div class="nav-buttons">
-                <button class="nav-btn">Login</button>
-                <button class="nav-btn">Register</button>
-            </div>
-        </div>
+        <h1>Multi Tool Hub</h1>
+        <p class="tagline">Your all-in-one solution for media processing and financial calculations</p>
     </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <h2>Your One-Stop Solution for <span class="highlight">Free Online Tools</span></h2>
-        <p>JugaadTools offers a comprehensive suite of free utilities for all your needs - from image manipulation and SEO analysis to calculators, converters, and more. No registration required!</p>
-    </section>
-
-    <!-- Categories Section -->
-    <section class="categories">
-        <h2 class="section-title">Tool Categories</h2>
-        
-        <div class="category-buttons">
-            <button class="category-btn active">All Tools</button>
-            <button class="category-btn">Image Tools</button>
-            <button class="category-btn">SEO Tools</button>
-            <button class="category-btn">Text Tools</button>
-            <button class="category-btn">Math & Calculators</button>
-            <button class="category-btn">Unit Converters</button>
-            <button class="category-btn">Social Media</button>
-            <button class="category-btn">Miscellaneous</button>
-        </div>
-        
-        <div class="tools-grid" id="toolsGrid">
-            <!-- Tool cards will be generated by JavaScript -->
-        </div>
-    </section>
-
-    <!-- Ad Section -->
-    <section class="ad-section">
-        <h3>Premium Tools - Unlock Advanced Features</h3>
-        <div class="ad-content">
-            <div class="ad-text">
-                <p>Upgrade to JugaadTools Premium for enhanced capabilities, ad-free experience, and priority support.</p>
-                <p>Get access to advanced image processing, SEO analytics, and exclusive tools designed for professionals.</p>
-                <button class="tool-btn" style="max-width: 250px; margin: 1.5rem auto 0;">Learn More About Premium</button>
+    
+    <div class="container">
+        <div class="tools-grid">
+            <!-- Image Converter -->
+            <div class="tool-card">
+                <i class="fas fa-exchange-alt tool-icon"></i>
+                <h2>Image Converter</h2>
+                <p>Convert images between different formats (JPG, PNG, WEBP, etc.) while preserving quality.</p>
+                <button class="btn" onclick="redirectToTool('Image Converter')">Use Tool</button>
             </div>
-            <div class="ad-placeholder">
-                Advertisement Space
+            
+            <!-- Image Compressor -->
+            <div class="tool-card">
+                <i class="fas fa-compress-alt tool-icon"></i>
+                <h2>Image Compressor</h2>
+                <p>Reduce image file size without noticeable quality loss. Perfect for web optimization.</p>
+                <button class="btn" onclick="redirectToTool('Image Compressor')">Use Tool</button>
+            </div>
+            
+            <!-- Image Crop -->
+            <div class="tool-card">
+                <i class="fas fa-crop-alt tool-icon"></i>
+                <h2>Image Crop</h2>
+                <p>Crop your images to the perfect size and aspect ratio with intuitive controls.</p>
+                <button class="btn" onclick="redirectToTool('Image Crop')">Use Tool</button>
+            </div>
+            
+            <!-- Video Converter -->
+            <div class="tool-card">
+                <i class="fas fa-video tool-icon"></i>
+                <h2>Video Converter</h2>
+                <p>Convert videos between popular formats (MP4, AVI, MOV, MKV) with customizable settings.</p>
+                <button class="btn" onclick="redirectToTool('Video Converter')">Use Tool</button>
+            </div>
+            
+            <!-- Age Calculator -->
+            <div class="tool-card">
+                <i class="fas fa-birthday-cake tool-icon"></i>
+                <h2>Age Calculator</h2>
+                <p>Calculate exact age in years, months, and days. Perfect for birthdays and anniversaries.</p>
+                <button class="btn" onclick="redirectToTool('Age Calculator')">Use Tool</button>
+            </div>
+            
+            <!-- EMI Calculator -->
+            <div class="tool-card">
+                <i class="fas fa-calculator tool-icon"></i>
+                <h2>EMI Calculator</h2>
+                <p>Calculate Equated Monthly Installments for loans with detailed payment schedules.</p>
+                <button class="btn" onclick="redirectToTool('EMI Calculator')">Use Tool</button>
+            </div>
+            
+            <!-- SIP Calculator -->
+            <div class="tool-card">
+                <i class="fas fa-chart-line tool-icon"></i>
+                <h2>SIP Calculator</h2>
+                <p>Plan your Systematic Investment Plans and forecast potential returns on investments.</p>
+                <button class="btn" onclick="redirectToTool('SIP Calculator')">Use Tool</button>
+            </div>
+            
+            <!-- Audio Trim -->
+            <div class="tool-card">
+                <i class="fas fa-music tool-icon"></i>
+                <h2>Audio Trim</h2>
+                <p>Trim and edit audio files. Cut out unwanted sections and export in various formats.</p>
+                <button class="btn" onclick="redirectToTool('Audio Trim')">Use Tool</button>
             </div>
         </div>
-    </section>
-
-    <!-- Footer Section -->
+    </div>
+    
     <footer>
-        <div class="footer-container">
-            <div class="footer-col">
-                <h4>JugaadTools</h4>
-                <p>Your trusted source for free, high-quality online tools since 2023. We believe in making powerful utilities accessible to everyone.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
-            
-            <div class="footer-col">
-                <h4>Quick Links</h4>
-                <ul class="footer-links">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">All Tools</a></li>
-                    <li><a href="#">Categories</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-col">
-                <h4>Popular Tools</h4>
-                <ul class="footer-links">
-                    <li><a href="image-compressor.html">Image Compressor</a></li>
-                    <li><a href="#">SEO Analyzer</a></li>
-                    <li><a href="word-counter.html">Word Counter</a></li>
-                    <li><a href="#">Currency Converter</a></li>
-                    <li><a href="#">Password Generator</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-col">
-                <h4>Contact Us</h4>
-                <ul class="footer-links">
-                    <li><i class="fas fa-envelope"></i> contact@jugaadtools.com</li>
-                    <li><i class="fas fa-map-marker-alt"></i> Mumbai, India</li>
-                    <li><i class="fas fa-phone"></i> +91 98765 43210</li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="copyright">
-            <p>&copy; 2023 JugaadTools. All rights reserved.</p>
-        </div>
+        <p>© 2023 Multi Tool Hub. All rights reserved.</p>
     </footer>
-
+    
     <script>
-        // Sample tools data
-        const tools = [
-            {
-                name: "Image Compressor",
-                description: "Reduce image file size without losing quality",
-                category: "image",
-                icon: "fa-image"
-            },
-            {
-                name: "SEO Analyzer",
-                description: "Analyze your website's SEO performance",
-                category: "seo",
-                icon: "fa-chart-line"
-            },
-            {
-                name: "Word Counter",
-                description: "Count words, characters, sentences and paragraphs",
-                category: "text",
-                icon: "fa-font"
-            },
-            {
-                name: "Scientific Calculator",
-                description: "Advanced calculator for complex calculations",
-                category: "math",
-                icon: "fa-calculator"
-            },
-            {
-                name: "Currency Converter",
-                description: "Convert between world currencies with live rates",
-                category: "converter",
-                icon: "fa-money-bill-wave"
-            },
-            {
-                name: "Social Media Preview",
-                description: "See how your content will look on social platforms",
-                category: "social",
-                icon: "fa-hashtag"
-            },
-            {
-                name: "Password Generator",
-                description: "Create strong and secure passwords",
-                category: "misc",
-                icon: "fa-lock"
-            },
-            {
-                name: "PDF to Word Converter",
-                description: "Convert PDF documents to editable Word files",
-                category: "misc",
-                icon: "fa-file-word"
-            },
-            {
-                name: "Color Picker",
-                description: "Select and identify colors from images",
-                category: "image",
-                icon: "fa-palette"
-            },
-            {
-                name: "Keyword Research",
-                description: "Find high-traffic keywords for your content",
-                category: "seo",
-                icon: "fa-search"
-            },
-            {
-                name: "Text to Speech",
-                description: "Convert written text into natural-sounding speech",
-                category: "text",
-                icon: "fa-microphone"
-            },
-            {
-                name: "BMI Calculator",
-                description: "Calculate your Body Mass Index",
-                category: "math",
-                icon: "fa-weight-scale"
-            }
-        ];
-
-        // Tool categories
-        const categories = [
-            "all", "image", "seo", "text", "math", "converter", "social", "misc"
-        ];
-        
-        // Generate tool cards
-        function generateToolCards(toolsArray) {
-            const toolsGrid = document.getElementById('toolsGrid');
-            toolsGrid.innerHTML = '';
-            
-            toolsArray.forEach(tool => {
-                const toolCard = document.createElement('div');
-                toolCard.className = 'tool-card';
-                toolCard.innerHTML = `
-                    <div class="tool-icon">
-                        <i class="fas ${tool.icon}"></i>
-                    </div>
-                    <div class="tool-content">
-                        <h3>${tool.name}</h3>
-                        <p>${tool.description}</p>
-                        <button class="tool-btn" onclick="redirectToTool('${tool.name}')">Use Tool</button>
-                    </div>
-                `;
-                toolsGrid.appendChild(toolCard);
-            });
-        }
-        
-        // Initialize with all tools
-        generateToolCards(tools);
-        
-        // Search functionality
-        const searchInput = document.getElementById('searchInput');
-        searchInput.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            const filteredTools = tools.filter(tool => 
-                tool.name.toLowerCase().includes(searchTerm) || 
-                tool.description.toLowerCase().includes(searchTerm) ||
-                tool.category.toLowerCase().includes(searchTerm)
-            );
-            generateToolCards(filteredTools);
-        });
-        
-        // Category filtering
-        const categoryButtons = document.querySelectorAll('.category-btn');
-        categoryButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                // Update active button
-                categoryButtons.forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-                
-                const category = this.textContent.toLowerCase();
-                if (category === 'all tools') {
-                    generateToolCards(tools);
-                } else {
-                    const filteredTools = tools.filter(tool => 
-                        tool.category === category.split(' ')[0]
-                    );
-                    generateToolCards(filteredTools);
-                }
-            });
-        });
-        
-        // Redirect function
         function redirectToTool(toolName) {
             alert(`Redirecting to ${toolName}...`);
-            // In a real implementation, this would redirect to the tool page
-            // window.location.href = `tools/${toolName.toLowerCase().replace(/\s+/g, '-')}.html`;
+            // In a real implementation, this would navigate to the tool page
+            // window.location.href = toolName.toLowerCase().replace(' ', '-') + '.html';
         }
     </script>
 </body>
