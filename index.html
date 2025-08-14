@@ -47,13 +47,11 @@
         h1 {
             font-size: 2.8rem;
             margin-bottom: 5px;
-            color: var(--gold);
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-            letter-spacing: 1px;
             background: linear-gradient(to right, #FFD700, #FFEC8B);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            letter-spacing: 1px;
         }
 
         .tagline {
@@ -191,6 +189,7 @@
             margin-bottom: 20px;
             opacity: 0.9;
             flex-grow: 1;
+            font-size: 0.95rem;
         }
 
         .btn {
@@ -282,6 +281,14 @@
             transform: translateX(0);
         }
 
+        .tool-count {
+            font-size: 1rem;
+            background: rgba(255, 215, 0, 0.2);
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-left: 8px;
+        }
+
         /* Responsive Design */
         @media (max-width: 900px) {
             .tools-grid {
@@ -323,6 +330,10 @@
             .search-box {
                 padding-left: 45px;
             }
+            
+            .tool-card h2 {
+                font-size: 1.4rem;
+            }
         }
 
         /* Animations */
@@ -341,15 +352,6 @@
             animation: fadeIn 0.6s ease-out;
         }
 
-        .tool-card:nth-child(1) { animation-delay: 0.1s; }
-        .tool-card:nth-child(2) { animation-delay: 0.2s; }
-        .tool-card:nth-child(3) { animation-delay: 0.3s; }
-        .tool-card:nth-child(4) { animation-delay: 0.4s; }
-        .tool-card:nth-child(5) { animation-delay: 0.5s; }
-        .tool-card:nth-child(6) { animation-delay: 0.6s; }
-        .tool-card:nth-child(7) { animation-delay: 0.7s; }
-        .tool-card:nth-child(8) { animation-delay: 0.8s; }
-
         .search-box {
             animation: fadeIn 0.5s ease-out 0.3s both;
         }
@@ -357,18 +359,6 @@
         .category {
             animation: fadeIn 0.5s ease-out both;
         }
-
-        .category:nth-child(1) { animation-delay: 0.4s; }
-        .category:nth-child(2) { animation-delay: 0.5s; }
-        .category:nth-child(3) { animation-delay: 0.6s; }
-
-        /* Featured tools animation */
-        .featured-tool {
-            animation: fadeIn 0.5s ease-out both;
-        }
-        .featured-tool:nth-child(1) { animation-delay: 0.2s; }
-        .featured-tool:nth-child(2) { animation-delay: 0.3s; }
-        .featured-tool:nth-child(3) { animation-delay: 0.4s; }
     </style>
 </head>
 <body>
@@ -376,11 +366,11 @@
     
     <header>
         <h1>Multi Tool Hub</h1>
-        <p class="tagline">Your all-in-one solution for media processing and financial calculations</p>
+        <p class="tagline">Your all-in-one solution for media processing, text tools, and financial calculations</p>
         
         <div class="search-container">
             <i class="fas fa-search search-icon"></i>
-            <input type="text" class="search-box" placeholder="Search for tools...">
+            <input type="text" class="search-box" id="searchBox" placeholder="Search for tools...">
         </div>
     </header>
     
@@ -405,7 +395,7 @@
         
         <!-- Image Tools Section -->
         <div class="category">
-            <h2 class="category-title">Image Tools</h2>
+            <h2 class="category-title">Image Tools <span class="tool-count">11</span></h2>
             <div class="tools-grid">
                 <!-- Image Converter -->
                 <div class="tool-card">
@@ -423,19 +413,169 @@
                     <a href="image-compressor.html" class="btn" onclick="showNotification('Image Compressor')">Use Tool</a>
                 </div>
                 
-                <!-- Image Crop -->
+                <!-- Image to PNG Converter -->
+                <div class="tool-card">
+                    <i class="fas fa-file-image tool-icon"></i>
+                    <h2>Image to PNG</h2>
+                    <p>Convert any image format to high-quality PNG files.</p>
+                    <a href="image-to-png.html" class="btn" onclick="showNotification('Image to PNG Converter')">Use Tool</a>
+                </div>
+                
+                <!-- Image to JPG Converter -->
+                <div class="tool-card">
+                    <i class="fas fa-file-image tool-icon"></i>
+                    <h2>Image to JPG</h2>
+                    <p>Convert any image format to high-quality JPG files.</p>
+                    <a href="image-to-jpg.html" class="btn" onclick="showNotification('Image to JPG Converter')">Use Tool</a>
+                </div>
+                
+                <!-- Image Resizer -->
+                <div class="tool-card">
+                    <i class="fas fa-expand-alt tool-icon"></i>
+                    <h2>Image Resizer</h2>
+                    <p>Resize images to specific dimensions while maintaining quality.</p>
+                    <a href="image-resizer.html" class="btn" onclick="showNotification('Image Resizer')">Use Tool</a>
+                </div>
+                
+                <!-- Convert Image to Base64 -->
+                <div class="tool-card">
+                    <i class="fas fa-code tool-icon"></i>
+                    <h2>Image to Base64</h2>
+                    <p>Convert images to Base64 strings for web development.</p>
+                    <a href="image-to-base64.html" class="btn" onclick="showNotification('Image to Base64 Converter')">Use Tool</a>
+                </div>
+                
+                <!-- Convert WebP to PNG -->
+                <div class="tool-card">
+                    <i class="fas fa-sync-alt tool-icon"></i>
+                    <h2>WebP to PNG</h2>
+                    <p>Convert WebP images to PNG format quickly and easily.</p>
+                    <a href="webp-to-png.html" class="btn" onclick="showNotification('WebP to PNG Converter')">Use Tool</a>
+                </div>
+                
+                <!-- GIF Maker -->
+                <div class="tool-card">
+                    <i class="fas fa-film tool-icon"></i>
+                    <h2>GIF Maker</h2>
+                    <p>Create animated GIFs from images and videos.</p>
+                    <a href="gif-maker.html" class="btn" onclick="showNotification('GIF Maker')">Use Tool</a>
+                </div>
+                
+                <!-- QR Code Generator -->
+                <div class="tool-card">
+                    <i class="fas fa-qrcode tool-icon"></i>
+                    <h2>QR Code Generator</h2>
+                    <p>Create custom QR codes for URLs, contact info, and more.</p>
+                    <a href="qr-generator.html" class="btn" onclick="showNotification('QR Code Generator')">Use Tool</a>
+                </div>
+                
+                <!-- Screenshot to PDF Converter -->
+                <div class="tool-card">
+                    <i class="fas fa-file-pdf tool-icon"></i>
+                    <h2>Screenshot to PDF</h2>
+                    <p>Convert screenshots to PDF documents.</p>
+                    <a href="screenshot-to-pdf.html" class="btn" onclick="showNotification('Screenshot to PDF Converter')">Use Tool</a>
+                </div>
+                
+                <!-- Image Cropper -->
                 <div class="tool-card">
                     <i class="fas fa-crop-alt tool-icon"></i>
-                    <h2>Image Crop</h2>
-                    <p>Crop your images to the perfect size and aspect ratio.</p>
-                    <a href="image-crop.html" class="btn" onclick="showNotification('Image Crop')">Use Tool</a>
+                    <h2>Image Cropper</h2>
+                    <p>Crop images to specific dimensions and aspect ratios.</p>
+                    <a href="image-cropper.html" class="btn" onclick="showNotification('Image Cropper')">Use Tool</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Text Tools Section -->
+        <div class="category">
+            <h2 class="category-title">Text Tools <span class="tool-count">10</span></h2>
+            <div class="tools-grid">
+                <!-- Word Counter -->
+                <div class="tool-card">
+                    <i class="fas fa-font tool-icon"></i>
+                    <h2>Word Counter</h2>
+                    <p>Count words, characters, and sentences in your text.</p>
+                    <a href="word-counter.html" class="btn" onclick="showNotification('Word Counter')">Use Tool</a>
+                </div>
+                
+                <!-- Character Counter -->
+                <div class="tool-card">
+                    <i class="fas fa-text-width tool-icon"></i>
+                    <h2>Character Counter</h2>
+                    <p>Count characters, including spaces and special characters.</p>
+                    <a href="character-counter.html" class="btn" onclick="showNotification('Character Counter')">Use Tool</a>
+                </div>
+                
+                <!-- Case Converter -->
+                <div class="tool-card">
+                    <i class="fas fa-text-height tool-icon"></i>
+                    <h2>Case Converter</h2>
+                    <p>Convert text between uppercase, lowercase, and title case.</p>
+                    <a href="case-converter.html" class="btn" onclick="showNotification('Case Converter')">Use Tool</a>
+                </div>
+                
+                <!-- Plagiarism Checker -->
+                <div class="tool-card">
+                    <i class="fas fa-search tool-icon"></i>
+                    <h2>Plagiarism Checker</h2>
+                    <p>Check text for duplicate content across the web.</p>
+                    <a href="plagiarism-checker.html" class="btn" onclick="showNotification('Plagiarism Checker')">Use Tool</a>
+                </div>
+                
+                <!-- Grammar Checker -->
+                <div class="tool-card">
+                    <i class="fas fa-spell-check tool-icon"></i>
+                    <h2>Grammar Checker</h2>
+                    <p>Detect and correct grammar mistakes in your writing.</p>
+                    <a href="grammar-checker.html" class="btn" onclick="showNotification('Grammar Checker')">Use Tool</a>
+                </div>
+                
+                <!-- Text-to-Speech -->
+                <div class="tool-card">
+                    <i class="fas fa-volume-up tool-icon"></i>
+                    <h2>Text-to-Speech</h2>
+                    <p>Convert written text into natural-sounding speech.</p>
+                    <a href="text-to-speech.html" class="btn" onclick="showNotification('Text-to-Speech')">Use Tool</a>
+                </div>
+                
+                <!-- Speech-to-Text -->
+                <div class="tool-card">
+                    <i class="fas fa-microphone-alt tool-icon"></i>
+                    <h2>Speech-to-Text</h2>
+                    <p>Convert spoken words into written text accurately.</p>
+                    <a href="speech-to-text.html" class="btn" onclick="showNotification('Speech-to-Text')">Use Tool</a>
+                </div>
+                
+                <!-- URL Encoder & Decoder -->
+                <div class="tool-card">
+                    <i class="fas fa-link tool-icon"></i>
+                    <h2>URL Encoder/Decoder</h2>
+                    <p>Encode and decode URLs for safe web transmission.</p>
+                    <a href="url-encoder.html" class="btn" onclick="showNotification('URL Encoder & Decoder')">Use Tool</a>
+                </div>
+                
+                <!-- Fancy Text Generator -->
+                <div class="tool-card">
+                    <i class="fas fa-pen-fancy tool-icon"></i>
+                    <h2>Fancy Text Generator</h2>
+                    <p>Create stylish text with special characters and fonts.</p>
+                    <a href="fancy-text.html" class="btn" onclick="showNotification('Fancy Text Generator')">Use Tool</a>
+                </div>
+                
+                <!-- Random Text Generator -->
+                <div class="tool-card">
+                    <i class="fas fa-random tool-icon"></i>
+                    <h2>Random Text Generator</h2>
+                    <p>Generate placeholder text for your projects.</p>
+                    <a href="random-text.html" class="btn" onclick="showNotification('Random Text Generator')">Use Tool</a>
                 </div>
             </div>
         </div>
         
         <!-- Media Tools Section -->
         <div class="category">
-            <h2 class="category-title">Media Tools</h2>
+            <h2 class="category-title">Media Tools <span class="tool-count">2</span></h2>
             <div class="tools-grid">
                 <!-- Video Converter -->
                 <div class="tool-card">
@@ -457,7 +597,7 @@
         
         <!-- Calculator Tools Section -->
         <div class="category">
-            <h2 class="category-title">Financial Calculators</h2>
+            <h2 class="category-title">Calculators <span class="tool-count">3</span></h2>
             <div class="tools-grid">
                 <!-- EMI Calculator -->
                 <div class="tool-card">
@@ -493,10 +633,18 @@
     
     <script>
         // Search functionality
-        const searchBox = document.querySelector('.search-box');
+        const searchBox = document.getElementById('searchBox');
         searchBox.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
+            const searchTerm = this.value.toLowerCase().trim();
             const toolCards = document.querySelectorAll('.tool-card');
+            
+            if (!searchTerm) {
+                // Show all cards if search is empty
+                toolCards.forEach(card => {
+                    card.style.display = 'flex';
+                });
+                return;
+            }
             
             toolCards.forEach(card => {
                 const title = card.querySelector('h2').textContent.toLowerCase();
@@ -521,16 +669,6 @@
                 notification.classList.remove('show');
             }, 2000);
         }
-        
-        // Add tool count to category titles
-        document.addEventListener('DOMContentLoaded', function() {
-            const categories = document.querySelectorAll('.category');
-            categories.forEach(category => {
-                const toolCount = category.querySelectorAll('.tool-card').length;
-                const title = category.querySelector('.category-title');
-                title.innerHTML += ` <span class="tool-count">(${toolCount})</span>`;
-            });
-        });
     </script>
 </body>
 </html>
