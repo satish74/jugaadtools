@@ -33,13 +33,12 @@
         }
 
         header {
-            background-color: var(--deep-blue);
+            background: linear-gradient(135deg, var(--deep-blue) 0%, #1E1E2F 100%);
             padding: 30px 20px;
             text-align: center;
             box-shadow: 0 4px 12px var(--shadow);
             position: relative;
             z-index: 10;
-            background: linear-gradient(135deg, #2B2D42 0%, #1E1E2F 100%);
         }
 
         h1 {
@@ -48,6 +47,7 @@
             color: var(--gold);
             text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
             letter-spacing: 1px;
+            font-weight: 800;
         }
 
         .tagline {
@@ -66,7 +66,7 @@
 
         .search-box {
             width: 100%;
-            padding: 15px 20px;
+            padding: 15px 20px 15px 50px;
             border-radius: 50px;
             border: 2px solid var(--gold);
             background-color: rgba(255, 215, 0, 0.1);
@@ -86,10 +86,56 @@
             color: rgba(234, 234, 234, 0.7);
         }
 
+        .search-icon {
+            position: absolute;
+            left: 35px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+
         .container {
             max-width: 1200px;
             margin: 30px auto;
             padding: 0 20px;
+        }
+
+        .featured-tools {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .featured-tool {
+            background: linear-gradient(135deg, #3A3D5B 0%, #2B2D42 100%);
+            flex: 1;
+            min-width: 200px;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 12px var(--shadow);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .featured-tool:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px var(--shadow);
+        }
+
+        .featured-tool i {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .featured-tool h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: var(--gold);
         }
 
         .category {
@@ -103,6 +149,7 @@
             border-bottom: 2px solid var(--gold);
             display: inline-block;
             color: var(--gold);
+            font-weight: 700;
         }
 
         .tools-grid {
@@ -174,6 +221,7 @@
             margin-bottom: 20px;
             opacity: 0.9;
             flex-grow: 1;
+            font-size: 0.95rem;
         }
 
         .btn {
@@ -198,31 +246,6 @@
             transform: scale(1.02);
         }
 
-        .featured-tools {
-            display: flex;
-            justify-content: space-between;
-            margin: 30px 0;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .featured-tool {
-            background: linear-gradient(135deg, #3A3D5B 0%, #2B2D42 100%);
-            flex: 1;
-            min-width: 200px;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 4px 12px var(--shadow);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-        }
-
-        .featured-tool i {
-            font-size: 2rem;
-            color: var(--gold);
-            margin-bottom: 15px;
-        }
-
         footer {
             text-align: center;
             margin-top: 40px;
@@ -231,6 +254,14 @@
             opacity: 0.7;
             background-color: var(--deep-blue);
             border-top: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2rem;
+            color: var(--gold);
         }
 
         /* Responsive Design */
@@ -284,15 +315,6 @@
             animation: fadeIn 0.6s ease-out;
         }
 
-        .tool-card:nth-child(1) { animation-delay: 0.1s; }
-        .tool-card:nth-child(2) { animation-delay: 0.2s; }
-        .tool-card:nth-child(3) { animation-delay: 0.3s; }
-        .tool-card:nth-child(4) { animation-delay: 0.4s; }
-        .tool-card:nth-child(5) { animation-delay: 0.5s; }
-        .tool-card:nth-child(6) { animation-delay: 0.6s; }
-        .tool-card:nth-child(7) { animation-delay: 0.7s; }
-        .tool-card:nth-child(8) { animation-delay: 0.8s; }
-
         .search-box {
             animation: fadeIn 0.5s ease-out 0.3s both;
         }
@@ -301,26 +323,27 @@
             animation: fadeIn 0.5s ease-out both;
         }
 
-        .category:nth-child(1) { animation-delay: 0.4s; }
-        .category:nth-child(2) { animation-delay: 0.5s; }
-        .category:nth-child(3) { animation-delay: 0.6s; }
-
-        /* Featured tools animation */
-        .featured-tool {
-            animation: fadeIn 0.5s ease-out both;
+        /* Tool counter */
+        .tool-counter {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--dark-navy);
+            border-radius: 20px;
+            padding: 2px 12px;
+            font-size: 0.9rem;
+            margin-left: 10px;
+            font-weight: bold;
         }
-        .featured-tool:nth-child(1) { animation-delay: 0.2s; }
-        .featured-tool:nth-child(2) { animation-delay: 0.3s; }
-        .featured-tool:nth-child(3) { animation-delay: 0.4s; }
     </style>
 </head>
 <body>
     <header>
         <h1>Multi Tool Hub</h1>
-        <p class="tagline">Your all-in-one solution for media processing and financial calculations</p>
+        <p class="tagline">Your all-in-one solution for media processing, text manipulation, and calculations</p>
         
         <div class="search-container">
-            <input type="text" class="search-box" placeholder="Search for tools...">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-box" id="searchInput" placeholder="Search for tools...">
         </div>
     </header>
     
@@ -329,29 +352,29 @@
             <div class="featured-tool">
                 <i class="fas fa-bolt"></i>
                 <h3>Fast Processing</h3>
-                <p>Quick tool execution</p>
+                <p>Quick tool execution with minimal wait time</p>
             </div>
             <div class="featured-tool">
                 <i class="fas fa-shield-alt"></i>
                 <h3>Secure</h3>
-                <p>Your data is protected</p>
+                <p>Your data is never stored or shared</p>
             </div>
             <div class="featured-tool">
                 <i class="fas fa-infinity"></i>
                 <h3>No Limits</h3>
-                <p>Unlimited usage</p>
+                <p>Unlimited usage with no restrictions</p>
             </div>
         </div>
         
         <!-- Image Tools Section -->
         <div class="category">
-            <h2 class="category-title">Image Tools</h2>
+            <h2 class="category-title">Image Tools <span class="tool-counter">11</span></h2>
             <div class="tools-grid">
                 <!-- Image Converter -->
                 <div class="tool-card">
                     <i class="fas fa-exchange-alt tool-icon"></i>
                     <h2>Image Converter</h2>
-                    <p>Convert images between different formats (JPG, PNG, WEBP, etc.) while preserving quality.</p>
+                    <p>Convert images between different formats while preserving quality.</p>
                     <button class="btn" onclick="redirectToTool('Image Converter')">Use Tool</button>
                 </div>
                 
@@ -359,29 +382,93 @@
                 <div class="tool-card">
                     <i class="fas fa-compress-alt tool-icon"></i>
                     <h2>Image Compressor</h2>
-                    <p>Reduce image file size without noticeable quality loss. Perfect for web optimization.</p>
+                    <p>Reduce image file size without noticeable quality loss.</p>
                     <button class="btn" onclick="redirectToTool('Image Compressor')">Use Tool</button>
                 </div>
                 
-                <!-- Image Crop -->
+                <!-- Image to PNG -->
+                <div class="tool-card">
+                    <i class="fas fa-file-image tool-icon"></i>
+                    <h2>Image to PNG Converter</h2>
+                    <p>Convert any image format to high-quality PNG files.</p>
+                    <button class="btn" onclick="redirectToTool('Image to PNG Converter')">Use Tool</button>
+                </div>
+                
+                <!-- Image to JPG -->
+                <div class="tool-card">
+                    <i class="fas fa-file-image tool-icon"></i>
+                    <h2>Image to JPG Converter</h2>
+                    <p>Convert images to JPG format with adjustable quality settings.</p>
+                    <button class="btn" onclick="redirectToTool('Image to JPG Converter')">Use Tool</button>
+                </div>
+                
+                <!-- Image Resizer -->
+                <div class="tool-card">
+                    <i class="fas fa-expand-alt tool-icon"></i>
+                    <h2>Image Resizer</h2>
+                    <p>Resize images to any dimensions while maintaining aspect ratio.</p>
+                    <button class="btn" onclick="redirectToTool('Image Resizer')">Use Tool</button>
+                </div>
+                
+                <!-- Base64 Converter -->
+                <div class="tool-card">
+                    <i class="fas fa-code tool-icon"></i>
+                    <h2>Image to Base64</h2>
+                    <p>Convert images to Base64 strings for web development.</p>
+                    <button class="btn" onclick="redirectToTool('Image to Base64 Converter')">Use Tool</button>
+                </div>
+                
+                <!-- WebP to PNG -->
+                <div class="tool-card">
+                    <i class="fas fa-sync tool-icon"></i>
+                    <h2>WebP to PNG</h2>
+                    <p>Convert WebP images to PNG format with one click.</p>
+                    <button class="btn" onclick="redirectToTool('WebP to PNG Converter')">Use Tool</button>
+                </div>
+                
+                <!-- GIF Maker -->
+                <div class="tool-card">
+                    <i class="fas fa-film tool-icon"></i>
+                    <h2>GIF Maker</h2>
+                    <p>Create animated GIFs from images or video clips.</p>
+                    <button class="btn" onclick="redirectToTool('GIF Maker')">Use Tool</button>
+                </div>
+                
+                <!-- QR Code Generator -->
+                <div class="tool-card">
+                    <i class="fas fa-qrcode tool-icon"></i>
+                    <h2>QR Code Generator</h2>
+                    <p>Create custom QR codes for URLs, contacts, and more.</p>
+                    <button class="btn" onclick="redirectToTool('QR Code Generator')">Use Tool</button>
+                </div>
+                
+                <!-- Screenshot to PDF -->
+                <div class="tool-card">
+                    <i class="fas fa-file-pdf tool-icon"></i>
+                    <h2>Screenshot to PDF</h2>
+                    <p>Convert screenshots to PDF documents quickly.</p>
+                    <button class="btn" onclick="redirectToTool('Screenshot to PDF Converter')">Use Tool</button>
+                </div>
+                
+                <!-- Image Cropper -->
                 <div class="tool-card">
                     <i class="fas fa-crop-alt tool-icon"></i>
-                    <h2>Image Crop</h2>
-                    <p>Crop your images to the perfect size and aspect ratio with intuitive controls.</p>
-                    <button class="btn" onclick="redirectToTool('Image Crop')">Use Tool</button>
+                    <h2>Image Cropper</h2>
+                    <p>Crop images to the perfect size and aspect ratio.</p>
+                    <button class="btn" onclick="redirectToTool('Image Cropper')">Use Tool</button>
                 </div>
             </div>
         </div>
         
-        <!-- Media Tools Section -->
+        <!-- Video & Audio Tools Section -->
         <div class="category">
-            <h2 class="category-title">Media Tools</h2>
+            <h2 class="category-title">Media Tools <span class="tool-counter">2</span></h2>
             <div class="tools-grid">
                 <!-- Video Converter -->
                 <div class="tool-card">
                     <i class="fas fa-video tool-icon"></i>
                     <h2>Video Converter</h2>
-                    <p>Convert videos between popular formats (MP4, AVI, MOV, MKV) with customizable settings.</p>
+                    <p>Convert videos between popular formats with customizable settings.</p>
                     <button class="btn" onclick="redirectToTool('Video Converter')">Use Tool</button>
                 </div>
                 
@@ -389,21 +476,107 @@
                 <div class="tool-card">
                     <i class="fas fa-music tool-icon"></i>
                     <h2>Audio Trim</h2>
-                    <p>Trim and edit audio files. Cut out unwanted sections and export in various formats.</p>
+                    <p>Trim and edit audio files. Cut out unwanted sections.</p>
                     <button class="btn" onclick="redirectToTool('Audio Trim')">Use Tool</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Text Tools Section -->
+        <div class="category">
+            <h2 class="category-title">Text Tools <span class="tool-counter">10</span></h2>
+            <div class="tools-grid">
+                <!-- Word Counter -->
+                <div class="tool-card">
+                    <i class="fas fa-font tool-icon"></i>
+                    <h2>Word Counter</h2>
+                    <p>Count words, characters, sentences, and paragraphs in any text.</p>
+                    <button class="btn" onclick="redirectToTool('Word Counter')">Use Tool</button>
+                </div>
+                
+                <!-- Character Counter -->
+                <div class="tool-card">
+                    <i class="fas fa-text-height tool-icon"></i>
+                    <h2>Character Counter</h2>
+                    <p>Count characters with or without spaces in your text.</p>
+                    <button class="btn" onclick="redirectToTool('Character Counter')">Use Tool</button>
+                </div>
+                
+                <!-- Case Converter -->
+                <div class="tool-card">
+                    <i class="fas fa-text-width tool-icon"></i>
+                    <h2>Case Converter</h2>
+                    <p>Convert text between uppercase, lowercase, title case, and more.</p>
+                    <button class="btn" onclick="redirectToTool('Case Converter')">Use Tool</button>
+                </div>
+                
+                <!-- Plagiarism Checker -->
+                <div class="tool-card">
+                    <i class="fas fa-search tool-icon"></i>
+                    <h2>Plagiarism Checker</h2>
+                    <p>Check text for plagiarism against online sources.</p>
+                    <button class="btn" onclick="redirectToTool('Plagiarism Checker')">Use Tool</button>
+                </div>
+                
+                <!-- Grammar Checker -->
+                <div class="tool-card">
+                    <i class="fas fa-spell-check tool-icon"></i>
+                    <h2>Grammar Checker</h2>
+                    <p>Check grammar, spelling, and punctuation errors in text.</p>
+                    <button class="btn" onclick="redirectToTool('Grammar Checker')">Use Tool</button>
+                </div>
+                
+                <!-- Text-to-Speech -->
+                <div class="tool-card">
+                    <i class="fas fa-volume-up tool-icon"></i>
+                    <h2>Text-to-Speech</h2>
+                    <p>Convert written text into natural-sounding speech.</p>
+                    <button class="btn" onclick="redirectToTool('Text-to-Speech')">Use Tool</button>
+                </div>
+                
+                <!-- Speech-to-Text -->
+                <div class="tool-card">
+                    <i class="fas fa-microphone tool-icon"></i>
+                    <h2>Speech-to-Text</h2>
+                    <p>Convert spoken words into written text accurately.</p>
+                    <button class="btn" onclick="redirectToTool('Speech-to-Text')">Use Tool</button>
+                </div>
+                
+                <!-- URL Encoder/Decoder -->
+                <div class="tool-card">
+                    <i class="fas fa-link tool-icon"></i>
+                    <h2>URL Encoder & Decoder</h2>
+                    <p>Encode and decode URLs for safe web transmission.</p>
+                    <button class="btn" onclick="redirectToTool('URL Encoder & Decoder')">Use Tool</button>
+                </div>
+                
+                <!-- Fancy Text Generator -->
+                <div class="tool-card">
+                    <i class="fas fa-paint-brush tool-icon"></i>
+                    <h2>Fancy Text Generator</h2>
+                    <p>Create stylish and decorative text for social media.</p>
+                    <button class="btn" onclick="redirectToTool('Fancy Text Generator')">Use Tool</button>
+                </div>
+                
+                <!-- Random Text Generator -->
+                <div class="tool-card">
+                    <i class="fas fa-random tool-icon"></i>
+                    <h2>Random Text Generator</h2>
+                    <p>Generate random text for design mockups and testing.</p>
+                    <button class="btn" onclick="redirectToTool('Random Text Generator')">Use Tool</button>
                 </div>
             </div>
         </div>
         
         <!-- Calculator Tools Section -->
         <div class="category">
-            <h2 class="category-title">Financial Calculators</h2>
+            <h2 class="category-title">Calculators <span class="tool-counter">3</span></h2>
             <div class="tools-grid">
                 <!-- EMI Calculator -->
                 <div class="tool-card">
                     <i class="fas fa-calculator tool-icon"></i>
                     <h2>EMI Calculator</h2>
-                    <p>Calculate Equated Monthly Installments for loans with detailed payment schedules.</p>
+                    <p>Calculate Equated Monthly Installments for loans with schedules.</p>
                     <button class="btn" onclick="redirectToTool('EMI Calculator')">Use Tool</button>
                 </div>
                 
@@ -411,7 +584,7 @@
                 <div class="tool-card">
                     <i class="fas fa-chart-line tool-icon"></i>
                     <h2>SIP Calculator</h2>
-                    <p>Plan your Systematic Investment Plans and forecast potential returns on investments.</p>
+                    <p>Plan your Systematic Investment Plans and forecast returns.</p>
                     <button class="btn" onclick="redirectToTool('SIP Calculator')">Use Tool</button>
                 </div>
                 
@@ -419,7 +592,7 @@
                 <div class="tool-card">
                     <i class="fas fa-birthday-cake tool-icon"></i>
                     <h2>Age Calculator</h2>
-                    <p>Calculate exact age in years, months, and days. Perfect for birthdays and anniversaries.</p>
+                    <p>Calculate exact age in years, months, and days.</p>
                     <button class="btn" onclick="redirectToTool('Age Calculator')">Use Tool</button>
                 </div>
             </div>
@@ -435,25 +608,52 @@
         function redirectToTool(toolName) {
             alert(`Redirecting to ${toolName}...`);
             // In a real implementation, this would navigate to the tool page
-            // window.location.href = toolName.toLowerCase().replace(' ', '-') + '.html';
+            // window.location.href = toolName.toLowerCase().replace(/\s+/g, '-') + '.html';
         }
         
         // Search functionality
-        const searchBox = document.querySelector('.search-box');
-        searchBox.addEventListener('input', function() {
+        const searchInput = document.getElementById('searchInput');
+        const toolCards = document.querySelectorAll('.tool-card');
+        const categories = document.querySelectorAll('.category');
+        
+        searchInput.addEventListener('input', function() {
             const searchTerm = this.value.toLowerCase();
-            const toolCards = document.querySelectorAll('.tool-card');
+            let hasResults = false;
             
+            // Hide all tool cards and categories initially
+            toolCards.forEach(card => {
+                card.style.display = 'none';
+            });
+            
+            categories.forEach(category => {
+                category.style.display = 'none';
+            });
+            
+            // Show matching tools
             toolCards.forEach(card => {
                 const title = card.querySelector('h2').textContent.toLowerCase();
                 const description = card.querySelector('p').textContent.toLowerCase();
                 
                 if (title.includes(searchTerm) || description.includes(searchTerm)) {
                     card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
+                    card.closest('.category').style.display = 'block';
+                    hasResults = true;
                 }
             });
+            
+            // Show no results message if needed
+            const noResults = document.getElementById('noResults');
+            if (!hasResults && searchTerm.length > 0) {
+                if (!noResults) {
+                    const noResultsEl = document.createElement('div');
+                    noResultsEl.id = 'noResults';
+                    noResultsEl.className = 'no-results';
+                    noResultsEl.textContent = 'No tools found matching your search.';
+                    document.querySelector('.container').appendChild(noResultsEl);
+                }
+            } else if (noResults) {
+                noResults.remove();
+            }
         });
     </script>
 </body>
