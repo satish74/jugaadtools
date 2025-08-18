@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online WebP to PNG converter - Convert WebP images to PNG format with adjustable compression. Fast, secure, and no registration required.">
+    <meta name="keywords" content="webp to png, convert webp, webp converter, image converter, free image tools">
+    <title>WebP to PNG Converter | Free Online Tool - Convert WebP Images to PNG</title>
+    <!-- Google AdSense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_CLIENT_ID" crossorigin="anonymous"></script>
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "WebP to PNG Converter",
+      "description": "Free online tool to convert WebP images to PNG format with adjustable compression settings.",
+      "applicationCategory": "Multimedia",
+      "offers": {
+        "@type": "Offer",
+        "price": "0"
+      }
+    }
+    </script>
+    <style>
+        :root {
+            --primary: #FFD700;
+            --secondary: #2B2D42;
+            --dark: #1E1E2F;
+            --card: #3A3D5B;
+            --text: #EAEAEA;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, var(--dark) 0%, #121220 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            padding: 30px 0 20px;
+        }
+        h1 {
+            color: var(--primary);
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+        }
+        .tagline {
+            font-size: 1.1rem;
+            opacity: 0.85;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        .converter-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            margin: 30px 0 40px;
+        }
+        @media (min-width: 768px) {
+            .converter-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .upload-area {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            border: 2px dashed rgba(255, 215, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .upload-area::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+        }
+        .preview-area {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 30px;
+            position: relative;
+        }
+        .preview-area::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #4CAF50, transparent);
+        }
+        .settings-card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 30px;
+            grid-column: 1 / -1;
+        }
+        .adsense-ad {
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin: 25px 0;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        .btn {
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+            margin: 15px 5px;
+            font-size: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .btn:hover {
+            background: #E6C200;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+        .file-input {
+            display: none;
+        }
+        .preview-img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .comparison {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .comparison div {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        .slider-container {
+            margin: 25px 0;
+        }
+        .slider {
+            width: 100%;
+            height: 10px;
+            -webkit-appearance: none;
+            background: #2B2D42;
+            border-radius: 5px;
+            outline: none;
+        }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .stat-item {
+            text-align: center;
+            flex: 1;
+        }
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            background: rgba(43, 45, 66, 0.5);
+            border-radius: 12px;
+        }
+        .tool-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .benefits {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .benefit-card {
+            flex: 1;
+            min-width: 200px;
+            background: var(--card);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+        }
+        .benefit-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            .converter-container {
+                grid-template-columns: 1fr;
+            }
+            .benefits {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <i class="fas fa-exchange-alt tool-icon"></i>
+            <h1>WebP to PNG Converter</h1>
+            <p class="tagline">Convert WebP images to PNG format instantly. Adjust compression settings for optimal results.</p>
+        </header>
+
+        <!-- AdSense Ad Unit -->
+        <div class="adsense-ad">
+            <!-- Replace with your AdSense code -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_AD_CLIENT_ID"
+                 data-ad-slot="1234567890"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <div class="benefits">
+            <div class="benefit-card">
+                <i class="fas fa-bolt"></i>
+                <h3>Instant Conversion</h3>
+                <p>Convert images in seconds with no delay</p>
+            </div>
+            <div class="benefit-card">
+                <i class="fas fa-lock"></i>
+                <h3>Secure Processing</h3>
+                <p>Files never leave your browser</p>
+            </div>
+            <div class="benefit-card">
+                <i class="fas fa-infinity"></i>
+                <h3>Unlimited Usage</h3>
+                <p>No restrictions, no watermarks</p>
+            </div>
+            <div class="benefit-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Mobile Friendly</h3>
+                <p>Works on all devices</p>
+            </div>
+        </div>
+
+        <div class="converter-container">
+            <!-- Upload Section -->
+            <div class="upload-area">
+                <h2>Upload WebP Image</h2>
+                <p>Drag & drop or click to browse files</p>
+                <input type="file" id="fileInput" class="file-input" accept=".webp">
+                <label for="fileInput" class="btn">Choose WebP File</label>
+                <p id="fileName">No file selected</p>
+                <div id="originalPreview"></div>
+            </div>
+
+            <!-- Preview Section -->
+            <div class="preview-area">
+                <h2>Converted PNG Image</h2>
+                <div class="comparison">
+                    <div>
+                        <h3>Original WebP</h3>
+                        <div id="originalStats">Size: 0 KB</div>
+                    </div>
+                    <div>
+                        <h3>Converted PNG</h3>
+                        <div id="convertedStats">Size: 0 KB</div>
+                    </div>
+                </div>
+                <div id="convertedPreview"></div>
+                <button id="downloadBtn" class="btn" disabled>Download PNG Image</button>
+            </div>
+
+            <!-- Settings Section -->
+            <div class="settings-card">
+                <h2>Conversion Settings</h2>
+                
+                <div class="slider-container">
+                    <label>Compression Level: <span id="qualityValue">80</span>%</label>
+                    <input type="range" min="1" max="100" value="80" class="slider" id="qualitySlider">
+                    <p class="hint">Higher value = better quality & larger file size</p>
+                </div>
+                
+                <div class="slider-container">
+                    <label>Resize: <span id="sizeValue">100</span>%</label>
+                    <input type="range" min="10" max="100" value="100" class="slider" id="sizeSlider">
+                    <p class="hint">Reduce size to decrease file size</p>
+                </div>
+                
+                <button id="convertBtn" class="btn" disabled>Convert to PNG</button>
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="savings">0%</div>
+                        <div>Size Savings</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="quality">High</div>
+                        <div>Quality</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="dimensions">0×0</div>
+                        <div>Dimensions</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="adsense-ad">
+            <!-- Second Ad Unit -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_AD_CLIENT_ID"
+                 data-ad-slot="0987654321"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        
+        <footer>
+            <p>© 2025 WebPtoPNG Converter | Part of the JugaadTools Network</p>
+            <p>Free Online Tool - No Registration Required - Privacy Focused</p>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script>
+        // DOM Elements
+        const fileInput = document.getElementById('fileInput');
+        const fileName = document.getElementById('fileName');
+        const originalPreview = document.getElementById('originalPreview');
+        const convertedPreview = document.getElementById('convertedPreview');
+        const convertBtn = document.getElementById('convertBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const qualitySlider = document.getElementById('qualitySlider');
+        const sizeSlider = document.getElementById('sizeSlider');
+        const qualityValue = document.getElementById('qualityValue');
+        const sizeValue = document.getElementById('sizeValue');
+        const originalStats = document.getElementById('originalStats');
+        const convertedStats = document.getElementById('convertedStats');
+        const savingsEl = document.getElementById('savings');
+        const qualityEl = document.getElementById('quality');
+        const dimensionsEl = document.getElementById('dimensions');
+        
+        // Global Variables
+        let originalImage = null;
+        let originalSize = 0;
+        
+        // Event Listeners
+        fileInput.addEventListener('change', handleImageUpload);
+        qualitySlider.addEventListener('input', updateQuality);
+        sizeSlider.addEventListener('input', updateSize);
+        convertBtn.addEventListener('click', convertImage);
+        downloadBtn.addEventListener('click', downloadImage);
+        
+        // Initialize
+        updateQuality();
+        updateSize();
+        
+        // Functions
+        function handleImageUpload(e) {
+            const file = e.target.files[0];
+            if (!file || !file.type.match('image/webp')) {
+                alert("Please select a WebP image file");
+                return;
+            }
+            
+            fileName.textContent = file.name;
+            originalImage = new Image();
+            const reader = new FileReader();
+            
+            reader.onload = function(event) {
+                originalImage.onload = function() {
+                    originalPreview.innerHTML = `<img src="${event.target.result}" class="preview-img" alt="Original WebP preview">`;
+                    originalSize = file.size;
+                    originalStats.textContent = `Size: ${formatFileSize(file.size)}`;
+                    dimensionsEl.textContent = `${originalImage.width}×${originalImage.height}`;
+                    convertBtn.disabled = false;
+                }
+                originalImage.src = event.target.result;
+            }
+            
+            reader.readAsDataURL(file);
+        }
+        
+        function updateQuality() {
+            qualityValue.textContent = qualitySlider.value;
+            const value = parseInt(qualitySlider.value);
+            qualityEl.textContent = value > 80 ? "High" : value > 50 ? "Medium" : "Low";
+        }
+        
+        function updateSize() {
+            sizeValue.textContent = sizeSlider.value;
+        }
+        
+        function convertImage() {
+            if (!originalImage) return;
+            
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const scale = parseInt(sizeSlider.value) / 100;
+            
+            // Set canvas dimensions
+            canvas.width = originalImage.width * scale;
+            canvas.height = originalImage.height * scale;
+            dimensionsEl.textContent = `${canvas.width}×${canvas.height}`;
+            
+            // Draw image with new dimensions
+            ctx.drawImage(originalImage, 0, 0, canvas.width, canvas.height);
+            
+            // Get converted image data
+            const quality = parseInt(qualitySlider.value) / 100;
+            const dataURL = canvas.toDataURL('image/png', quality);
+            
+            // Display converted image
+            convertedPreview.innerHTML = `<img src="${dataURL}" class="preview-img" alt="Converted PNG preview">`;
+            
+            // Calculate file size
+            const convertedSize = getFileSize(dataURL);
+            convertedStats.textContent = `Size: ${formatFileSize(convertedSize)}`;
+            
+            // Calculate savings
+            const savings = Math.round((1 - convertedSize / originalSize) * 100);
+            savingsEl.textContent = `${savings > 0 ? savings : 0}%`;
+            
+            // Enable download button
+            downloadBtn.disabled = false;
+            downloadBtn.dataset.url = dataURL;
+            downloadBtn.dataset.filename = getDownloadFilename();
+        }
+        
+        function downloadImage() {
+            const link = document.createElement('a');
+            link.href = downloadBtn.dataset.url;
+            link.download = downloadBtn.dataset.filename;
+            link.click();
+        }
+        
+        function getDownloadFilename() {
+            const originalName = fileName.textContent;
+            if (originalName !== "No file selected") {
+                return originalName.replace('.webp', '.png').replace('.WEBP', '.png');
+            }
+            return `converted-image-${new Date().getTime()}.png`;
+        }
+        
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' bytes';
+            else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+            else return (bytes / 1048576).toFixed(1) + ' MB';
+        }
+        
+        function getFileSize(dataURL) {
+            // Calculate file size from base64 string
+            const base64 = dataURL.split(',')[1];
+            const binaryString = atob(base64);
+            return binaryString.length;
+        }
+    </script>
+</body>
+</html>
